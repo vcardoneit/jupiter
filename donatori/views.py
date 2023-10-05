@@ -1,3 +1,4 @@
+import csv
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.core.paginator import Paginator
@@ -65,7 +66,7 @@ def donatori(request):
 
 
 @login_required
-def salvaTs(request):
+def salva(request):
     tesseraMod = request.POST.get('tesseraMod')
 
     lDonatori = mDonatori.objects.get(tessera=tesseraMod)
@@ -85,3 +86,19 @@ def salvaTs(request):
 
     lDonatori.save()
     return redirect("donatori")
+
+@login_required
+def esporta(request):
+    response = HttpResponse(
+        content_type="text/csv",
+        headers={"Content-Disposition": 'attachment; filename="donatori.csv"'},
+    )
+
+    lDonatori = mDonatori.objects.all()
+
+    writer = csv.writer(response)
+    writer.writerow(["tessera", "grupposang", "fenotipo", "kell", "nome", "cognome", "datadinascita", "luogodinascita", "codicefiscale", "indirizzo", "comune", "tel", "email"])
+    for x in lDonatori:
+        writer.writerow([x.tessera, x.grupposang, x.fenotipo, x.kell, x.nome, x.cognome, x.datadinascita, x.luogodinascita, x.codicefiscale, x.indirizzo, x.comune, x.tel, x.email])
+
+    return response

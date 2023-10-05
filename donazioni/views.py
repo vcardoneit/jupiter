@@ -1,3 +1,4 @@
+import csv
 from django.shortcuts import redirect
 from django.core.paginator import Paginator
 from django.template import loader
@@ -8,7 +9,7 @@ from .models import donazioni as mDonazioni
 
 
 @login_required
-def salvaDn(request):
+def salva(request):
     donazioneMod = request.POST.get('donazioneMod')
 
     lDonazioni = mDonazioni.objects.get(id=donazioneMod)
@@ -102,3 +103,20 @@ def donazioni(request):
         page_obj = paginator.get_page(page_number)
         context = {"page_obj": page_obj}
         return HttpResponse(template.render(context, request))
+
+
+@login_required
+def esporta(request):
+    response = HttpResponse(
+        content_type="text/csv",
+        headers={"Content-Disposition": 'attachment; filename="donazioni.csv"'},
+    )
+
+    lDonazioni = mDonazioni.objects.all()
+
+    writer = csv.writer(response)
+    writer.writerow(["id", "donatore", "data", "tipo", "quantitativo"])
+    for x in lDonazioni:
+        writer.writerow([x.id, x.donatore_id, x.data, x.tipo, x.quantitativo])
+
+    return response

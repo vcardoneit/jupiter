@@ -4,7 +4,7 @@
 <div class="container p-3" style="background-color: rgb(219, 219, 219);">
     <h2 align="center">Modifica Profilo Donatore</h2>
     <h4 align="center">Tessera numero {{ donatore.tessera }}</h4>
-    <form method="post" action="{% url 'salvaTs' %}">
+    <form method="post" action="{% url 'salva' %}">
         {% csrf_token %}
         <input type="hidden" id="tesseraMod" name="tesseraMod" value="{{ donatore.tessera }}">
         <div class="mb-3">

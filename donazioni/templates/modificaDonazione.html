@@ -4,7 +4,7 @@
 <div class="container p-3" style="background-color: rgb(219, 219, 219);">
     <h2 align="center">Modifica Donazione</h2>
     <h4 align="center">ID Numero {{ donazione.id }}</h4>
-    <form method="post" action="{% url 'salvaDn' %}">
+    <form method="post" action="{% url 'salva' %}">
         {% csrf_token %}
         <input type="hidden" id="donazioneMod" name="donazioneMod" value="{{ donazione.id }}">
         <div class="mb-3">
