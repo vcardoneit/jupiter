@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}  
+<div class="container p-3" style="background-color: rgb(219, 219, 219);">
+    <h2 align="center">Modifica Profilo Donatore</h2>
+    <h4 align="center">Tessera numero {{ donatore.tessera }}</h4>
+    <form method="post" action="{% url 'salvaTs' %}">
+        {% csrf_token %}
+        <input type="hidden" id="tesseraMod" name="tesseraMod" value="{{ donatore.tessera }}">
+        <div class="mb-3">
+            <label for="grupposanguigno" class="form-label">Gruppo Sanguigno</label>
+            <select class="form-control" name="grupposanguigno" id="grupposanguigno" required>
+                <option value="A+" {% if donatore.grupposang == "A+" %}selected{% endif %}>A+</option>
+                <option value="A-" {% if donatore.grupposang == "A-" %}selected{% endif %}>A-</option>
+                <option value="B+" {% if donatore.grupposang == "B+" %}selected{% endif %}>B+</option>
+                <option value="B-" {% if donatore.grupposang == "B-" %}selected{% endif %}>B-</option>
+                <option value="0+" {% if donatore.grupposang == "0+" %}selected{% endif %}>0+</option>
+                <option value="0-" {% if donatore.grupposang == "0-" %}selected{% endif %}>0-</option>
+                <option value="AB+" {% if donatore.grupposang == "AB+" %}selected{% endif %}>AB+</option>
+                <option value="AB-" {% if donatore.grupposang == "AB-" %}selected{% endif %}>AB-</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="fenotipo" class="form-label">Fenotipo</label>
+            <input type="text" class="form-control" name="fenotipo" value="{{ donatore.fenotipo }}" id="fenotipo" required>
+        </div>
+        <div class="mb-3">
+            <label for="kell" class="form-label">Kell</label>
+            <input type="text" class="form-control" name="kell" value="{{ donatore.kell }}" id="kell" required>
+        </div>
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" class="form-control" name="nome" value="{{ donatore.nome }}" id="nome" required>
+        </div>
+        <div class="mb-3">
+            <label for="cognome" class="form-label">Cognome</label>
+            <input type="text" class="form-control" name="cognome" value="{{ donatore.cognome }}" id="cognome" required>
+        </div>
+        <div class="mb-3">
+            <label for="datadinascita" class="form-label">Data di nascita</label>
+            <input type="date" class="form-control" name="datadinascita" value="{{ donatore.datadinascita|date:'Y-m-d' }}" id="datadinascita" required>
+        </div>
+        <div class="mb-3">
+            <label for="luogodinascita" class="form-label">Luogo di nascita</label>
+            <input type="text" class="form-control" name="luogodinascita" value="{{ donatore.luogodinascita }}" id="luogodinascita" required>
+        </div>
+        <div class="mb-3">
+            <label for="codicefiscale" class="form-label">Codice Fiscale</label>
+            <input type="text" class="form-control" name="codicefiscale" value="{{ donatore.codicefiscale }}" id="codicefiscale" maxlength="16" required>
+        </div>
+        <div class="mb-3">
+            <label for="indirizzo" class="form-label">Indirizzo</label>
+            <input type="text" class="form-control" name="indirizzo" value="{{ donatore.indirizzo }}" id="indirizzo" required>
+        </div>
+        <div class="mb-3">
+            <label for="comune" class="form-label">Comune</label>
+            <input type="text" class="form-control" name="comune" value="{{ donatore.comune }}" id="comune" required>
+        </div>
+        <div class="mb-3">
+            <label for="telefono" class="form-label">Telefono</label>
+            <input type="tel" class="form-control" name="telefono" value="{{ donatore.tel }}" id="telefono" maxlength="10" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" value="{{ donatore.email }}" id="email" required>
+        </div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="submit" class="btn text-white btn-lg" style="background-color: #137935"><b>Salva</b></button>
+            <button type="button" class="btn text-white btn-lg" style="background-color: #cc0000" onclick="location.href = 'donatori';"><b>Annulla</b></button>
+        </div>
+    </form>
+    <form method="post" action="{% url 'donatori' %}">
+        {% csrf_token %}
+        <div class="pt-5 d-grid gap-2 d-md-flex justify-content-md-end">
+            <input type="hidden" name="tesseraCanc" id="tesseraCanc" value="{{ donatore.tessera }}">
+            <button type="submit" class="btn text-white" style="background-color: #cc0000">Cancella Tessera</button>
+        </div>
+    </form>
+</div> 
+{% endblock content %}

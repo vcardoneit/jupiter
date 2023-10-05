@@ -1,0 +1,25 @@
+{% load static %}
+<!doctype html>
+<html lang="it">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Jupiter</title>
+		<link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
+	</head>
+
+	<body style="background-color: #fcfcfc">
+
+		<nav class="navbar" style="background-color: #cc0000;">
+			<div class="container-fluid justify-content-center pb-2"><a href="/" class="text-decoration-none"><span class="mb-2 h1 text-white">Jupiter - CRI Avola</span></a></div>
+		</nav>
+
+        {% block content %}{% endblock content %}
+
+		<script src="{% static 'bootstrap.bundle.min.js' %}"></script>
+		<script src="{% static 'popper.min.js' %}"></script>
+		<script src="{% static 'bootstrap.min.js' %}"></script>
+	</body>
+
+</html>
