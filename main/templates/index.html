@@ -2,14 +2,37 @@
 
 {% block content %}
 {% load static %}
-<div class="container text-center mt-4">
-	<div class="row justify-content-center">
-		<div class="col-auto m-4 p-3 rounded-4" style="background-color: #cc0000;"><a class="text-decoration-none text-white" href="donazioni"><img class="img-fluid p-3" width="150px" height="150px" src="{% static 'donazioni.png' %}"><h2>Donazioni</h2></a></div>
-        {% if request.user.is_staff %}
-		<div class="col-auto m-4 p-3 rounded-4" style="background-color: #cc0000;"><a class="text-decoration-none text-white" href="avvisi"><img class="img-fluid p-3" width="150px" height="150px" src="{% static 'avvisi.png' %}"><h2>Avvisi</h2></a></div>
+<div class="container mt-4">
+    {% if request.user.is_staff %}
+	<div class="row justify-content-center text-center">
 		<div class="col-auto m-4 p-3 rounded-4" style="background-color: #cc0000;"><a class="text-decoration-none text-white" href="donatori"><img class="img-fluid p-3" width="150px" height="150px" src="{% static 'donatori.png' %}"><h2>Donatori</h2></a></div>
-        {% endif %}
+		<div class="col-auto m-4 p-3 rounded-4" style="background-color: #cc0000;"><a class="text-decoration-none text-white" href="donazioni"><img class="img-fluid p-3" width="150px" height="150px" src="{% static 'donazioni.png' %}"><h2>Donazioni</h2></a></div>
+		<div class="col-auto m-4 p-3 rounded-4" style="background-color: #cc0000;"><a class="text-decoration-none text-white" href="avvisi"><img class="img-fluid p-3" width="150px" height="150px" src="{% static 'avvisi.png' %}"><h2>Avvisi</h2></a></div>
 		<div class="col-auto m-4 p-3 rounded-4" style="background-color: #cc0000;"><a class="text-decoration-none text-white" href="logout"><img class="img-fluid p-3" width="150px" height="150px" src="{% static 'logout.png' %}"><h2>Logout</h2></a></div>
 	</div>
+    {% endif %}
+
+    {% if not request.user.is_staff %}
+    <div class="container col-md-5">
+        <div class="row">
+            <div class="col p-4 rounded-2" style="background-color: #dfdfdf;line-height: 2">
+                <p class="text-left m-0">
+                <b>Nome:</b> {{ donatore.nome }}<br>
+                <b>Cognome:</b> {{ donatore.cognome }}<br>
+                <b>ID Tessera:</b> {{ donatore.tessera }}<br>
+                <b>Gruppo Sanguigno:</b> {{ donatore.grupposang }}<br>
+                <b>Fenotipo:</b> {{ donatore.fenotipo }}<br>
+                <b>Kell:</b> {{ donatore.kell }}<br>
+                <b>Totale donazioni:</b> {{ totDonazioni }}
+                </p>
+            </div>
+        </div>
+    </div>
+	<div class="row justify-content-center text-center">
+		<div class="col-auto m-4 p-3 rounded-4" style="background-color: #cc0000;"><a class="text-decoration-none text-white" href="donazioni"><img class="img-fluid p-3" width="150px" height="150px" src="{% static 'donazioni.png' %}"><h2>Donazioni</h2></a></div>
+		<div class="col-auto m-4 p-3 rounded-4" style="background-color: #cc0000;"><a class="text-decoration-none text-white" href="logout"><img class="img-fluid p-3" width="150px" height="150px" src="{% static 'logout.png' %}"><h2>Logout</h2></a></div>
+	</div>
+    {% endif %}
+
 </div>
 {% endblock content %}

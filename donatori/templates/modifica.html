@@ -4,7 +4,7 @@
 <div class="container p-3" style="background-color: rgb(219, 219, 219);">
     <h2 align="center">Modifica Profilo Donatore</h2>
     <h4 align="center">Tessera numero {{ donatore.tessera }}</h4>
-    <form method="post" action="{% url 'salva' %}">
+    <form method="post" action="{% url 'salva_donatore' %}">
         {% csrf_token %}
         <input type="hidden" id="tesseraMod" name="tesseraMod" value="{{ donatore.tessera }}">
         <div class="mb-3">
@@ -22,11 +22,35 @@
         </div>
         <div class="mb-3">
             <label for="fenotipo" class="form-label">Fenotipo</label>
-            <input type="text" class="form-control" name="fenotipo" value="{{ donatore.fenotipo }}" id="fenotipo" required>
+            <select class="form-control" id="fenotipo" name="fenotipo" required>
+                <option value="CCDee" {% if donatore.fenotipo == "CCDee" %}selected{% endif %}>CCDee</option>
+                <option value="ccDEE" {% if donatore.fenotipo == "ccDEE" %}selected{% endif %}>ccDEE</option>
+                <option value="CcDee" {% if donatore.fenotipo == "CcDee" %}selected{% endif %}>CcDee</option>
+                <option value="ccDEe" {% if donatore.fenotipo == "ccDEe" %}selected{% endif %}>ccDEe</option>
+                <option value="ccDee" {% if donatore.fenotipo == "ccDee" %}selected{% endif %}>ccDee</option>
+                <option value="CCDEE" {% if donatore.fenotipo == "CCDEE" %}selected{% endif %}>CCDEE</option>
+                <option value="CCDEe" {% if donatore.fenotipo == "CCDEe" %}selected{% endif %}>CCDEe</option>
+                <option value="CcDEE" {% if donatore.fenotipo == "CcDEE" %}selected{% endif %}>CcDEE</option>
+                <option value="CcDEe" {% if donatore.fenotipo == "CcDEe" %}selected{% endif %}>CcDEe</option>
+                <option value="Ccddee" {% if donatore.fenotipo == "Ccddee" %}selected{% endif %}>Ccddee</option>
+                <option value="CCddee" {% if donatore.fenotipo == "CCddee" %}selected{% endif %}>CCddee</option>
+                <option value="ccddEe" {% if donatore.fenotipo == "ccddEe" %}selected{% endif %}>ccddEe</option>
+                <option value="ccddEE" {% if donatore.fenotipo == "ccddEE" %}selected{% endif %}>ccddEE</option>
+                <option value="ccddee" {% if donatore.fenotipo == "ccddee" %}selected{% endif %}>ccddee</option>
+                <option value="CcddEe" {% if donatore.fenotipo == "CcddEe" %}selected{% endif %}>CcddEe</option>
+            </select>
         </div>
         <div class="mb-3">
             <label for="kell" class="form-label">Kell</label>
-            <input type="text" class="form-control" name="kell" value="{{ donatore.kell }}" id="kell" required>
+            <select class="form-control" id="kell" name="kell" required>
+                <option value="K+k+" {% if donatore.kell == "K+k+" %}selected{% endif %}>K+k+</option>
+                <option value="K+k-" {% if donatore.kell == "K+k-" %}selected{% endif %}>K+k-</option>
+                <option value="K-k+" {% if donatore.kell == "K-k+" %}selected{% endif %}>K-k+</option>
+                <option value="K-k-" {% if donatore.kell == "K-k-" %}selected{% endif %}>K-k-</option>
+                <option value="Kp(a+b+)" {% if donatore.kell == "Kp(a+b+)" %}selected{% endif %}>Kp(a+b+)</option>
+                <option value="Kp(a-b+)" {% if donatore.kell == "Kp(a-b+)" %}selected{% endif %}>Kp(a-b+)</option>
+                <option value="Kk" {% if donatore.kell == "Kk" %}selected{% endif %}>Kk</option>
+            </select>
         </div>
         <div class="mb-3">
             <label for="nome" class="form-label">Nome</label>
@@ -46,7 +70,7 @@
         </div>
         <div class="mb-3">
             <label for="codicefiscale" class="form-label">Codice Fiscale</label>
-            <input type="text" class="form-control" name="codicefiscale" value="{{ donatore.codicefiscale }}" id="codicefiscale" maxlength="16" required>
+            <input type="text" class="form-control" name="codicefiscale" value="{{ donatore.codicefiscale }}" id="codicefiscale" maxlength="16" style="text-transform:uppercase" required>
         </div>
         <div class="mb-3">
             <label for="indirizzo" class="form-label">Indirizzo</label>
@@ -66,15 +90,15 @@
         </div>
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button type="submit" class="btn text-white btn-lg" style="background-color: #137935"><b>Salva</b></button>
-            <button type="button" class="btn text-white btn-lg" style="background-color: #cc0000" onclick="location.href = 'donatori';"><b>Annulla</b></button>
+            <button type="submit" class="btn text-white btn-lg" style="background-color: #137935">Salva</button>
+            <button type="button" class="btn text-white btn-lg" style="background-color: #cc0000" onclick="location.href = '/donatori';">Annulla</button>
         </div>
     </form>
-    <form method="post" action="{% url 'donatori' %}">
+    <form method="post" action="{% url 'elimina_donatore' %}">
         {% csrf_token %}
         <div class="pt-5 d-grid gap-2 d-md-flex justify-content-md-end">
             <input type="hidden" name="tesseraCanc" id="tesseraCanc" value="{{ donatore.tessera }}">
-            <button type="submit" class="btn text-white" style="background-color: #cc0000">Cancella Tessera</button>
+            <button type="submit" class="btn text-white" style="background-color: #cc0000">Elimina Tessera</button>
         </div>
     </form>
 </div> 

@@ -1,7 +1,7 @@
 {% autoescape off %}
 Benvenuto!
 <br><br>
-Per impostare una password visita questa pagina:    
+Per impostare una nuova password visita questa pagina:    
 <br><br>
 {% block reset_link %}
 <a href="{{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}">{{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}</a>

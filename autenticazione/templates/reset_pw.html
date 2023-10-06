@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="container"> 
+    <div class="alert alert-success m-3 text-center" role="alert">Password dimenticata? Inserisci il tuo indirizzo email qui sotto e ti invieremo le istruzioni per impostarne una nuova.</div>
+
+    <div class="row justify-content-center p-2">
+        <div class="col-md-4 rounded-2 p-3" style="background-color:#ebebeb">
+            <form method="post">
+            {% csrf_token %}
+
+                <input type="hidden" autocomplete="username" value="{{ form.user.get_username }}">
+
+                {% if form.errors %}
+                <div class="alert alert-danger text-center" role="alert">Errore! Riprova :(</div>
+                {% endif %}
+
+                <div class="mb-3">
+                    <label for="{{ form.email.name }}" class="form-label"><b>Email</b></label>
+                    <input type="email" class="form-control" id="{{ form.email.email }}" name="{{ form.email.email }}" placeholder="esempio@dominio.it" required>
+                </div>
+
+                <div class="mb-3 d-grid gap-2">
+                    <input type="submit" name="submit" class="btn text-white" style="background-color: #cc0000;font-weight: 600;" value='Richiedi'>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,27 +1,34 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% if error %}
-<div class="alert alert-danger mt-4 ms-4 me-4 mb-0 text-center" role="alert">{{ error }}</div>
-{% endif %}
+
 <div class="text-center justify-content-center">
     <div class="pt-3">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="row justify-content-center pe-3 ps-3">
+            <div class="col-md-3">
+                <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
         {% if request.user.is_staff %}
         <input type="submit" name="submit" class="btn text-white" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="background-color: #137935;font-weight: 600;" value='Aggiungi Donazione'>
   
         <div class="row justify-content-center m-0">
-            <form class="col-md-3" method="post" action="{% url 'donazioni' %}">
+            <form class="col-md-3" method="post" action="{% url 'modifica_donazione' %}">
                 {% csrf_token %}
                 <div class="input-group p-3">
                     <input type="text" class="form-control shadow-none" name="donazioneMod" id="donazioneMod" placeholder="ID Donazione" aria-label="ID Donazione" required>
                     <button type="submit" class="btn text-white" style="background-color: #cc0000">Modifica Donazione</button>
                 </div>
             </form>
-            <form class="col-md-3" method="post" action="{% url 'donazioni' %}">
+            <form class="col-md-3" method="post" action="{% url 'storico_donazioni' %}">
                 {% csrf_token %}
                 <div class="input-group p-3">
                     <input type="text" class="form-control shadow-none" name="visualDonazioni" id="visualDonazioni" placeholder="Tessera Donatore" aria-label="Tessera Donatore" required>
-                    <button type="submit" class="btn text-white" style="background-color: #cc0000">Visualizza Donazioni</button>
+                    <button type="submit" class="btn text-white" style="background-color: #cc0000">Storico Donazioni</button>
                 </div>
             </form>
         </div>
@@ -35,7 +42,7 @@
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Aggiungi donazione</h1>
             </div>
             <div class="modal-body">
-                <form method="post" action="{% url 'donazioni' %}">
+                <form method="post" action="{% url 'aggiungi_donazione' %}">
                     {% csrf_token %}
                     <div class="mb-3">
                         <label for="tessera" class="form-label">Numero Tessera</label>
@@ -84,7 +91,7 @@
             </thead>
             <tbody>
             {% for lDonatori in page_obj %}
-                <tr>
+                <tr class="text-center">
                     {% if request.user.is_staff %}
                     <td>{{ lDonatori.id }}</td>
                     <td>{{ lDonatori.donatore_id }}</td>
@@ -118,7 +125,7 @@
         </ul>
     </nav>
     {% if request.user.is_staff %}
-    <p class="text-end"><a href="{% url 'esporta' %}">Esporta dati in CSV</a></p>
+    <p class="text-end"><a href="{% url 'esporta_donazioni' %}">Esporta dati in CSV</a></p>
     {% endif %}
 </div>
 

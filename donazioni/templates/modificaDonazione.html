@@ -4,7 +4,7 @@
 <div class="container p-3" style="background-color: rgb(219, 219, 219);">
     <h2 align="center">Modifica Donazione</h2>
     <h4 align="center">ID Numero {{ donazione.id }}</h4>
-    <form method="post" action="{% url 'salva' %}">
+    <form method="post" action="{% url 'salva_donazione' %}">
         {% csrf_token %}
         <input type="hidden" id="donazioneMod" name="donazioneMod" value="{{ donazione.id }}">
         <div class="mb-3">
@@ -29,8 +29,8 @@
         </div>
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button type="submit" class="btn text-white btn-lg" style="background-color: #137935"><b>Salva</b></button>
-            <button type="button" class="btn text-white btn-lg" style="background-color: #cc0000" onclick="location.href = 'donazioni';"><b>Annulla</b></button>
+            <button type="submit" class="btn text-white btn-lg" style="background-color: #137935">Salva</button>
+            <button type="button" class="btn text-white btn-lg" style="background-color: #cc0000" onclick="location.href = '/donazioni';">Annulla</button>
         </div>
     </form>
     <form method="post" action="{% url 'donazioni' %}">

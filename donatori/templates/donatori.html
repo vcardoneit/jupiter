@@ -2,25 +2,26 @@
 
 {% block content %}
 
-{% if error %}
-<div class="alert alert-danger mt-4 ms-4 me-4 mb-0 text-center" role="alert">{{ error }}</div>
-{% endif %}
-
 <div class="text-center justify-content-center">
     <div class="pt-3">
 
         <input type="submit" name="submit" class="btn text-white" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="background-color: #137935;font-weight: 600;" value='Aggiungi nuovo Donatore'>
   
         <div class="row justify-content-center m-0">
-            <form class="col-md-3" method="post" action="{% url 'donatori' %}">
+            <form class="col-md-3" method="post" action="{% url 'modifica_donatore' %}">
                 {% csrf_token %}
                 <div class="input-group p-3">
                     <input type="text" class="form-control shadow-none" name="tesseraMod" id="tesseraMod" placeholder="Numero Tessera" aria-label="Numero Tessera" required>
                     <button type="submit" class="btn text-white" style="background-color: #cc0000">Modifica Tessera</button>
                 </div>
+                
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+                {% endfor %}
+                {% endif %}
             </form>
         </div>
-
     </div>
 </div>
 
@@ -31,7 +32,7 @@
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Aggiungi Donatore</h1>
             </div>
             <div class="modal-body">
-                <form method="post" action="{% url 'aggiungi' %}">
+                <form method="post" action="{% url 'aggiungi_donatore' %}">
                     {% csrf_token %}
                     <div class="mb-3">
                         <label for="grupposanguigno" class="form-label">Gruppo Sanguigno</label>
@@ -48,11 +49,35 @@
                     </div>
                     <div class="mb-3">
                         <label for="fenotipo" class="form-label">Fenotipo</label>
-                        <input type="text" class="form-control" name="fenotipo" id="fenotipo" required>
+                        <select class="form-control" id="fenotipo" name="fenotipo" required>
+                            <option value="CCDee">CCDee</option>
+                            <option value="ccDEE">ccDEE</option>
+                            <option value="CcDee">CcDee</option>
+                            <option value="ccDEe">ccDEe</option>
+                            <option value="ccDee">ccDee</option>
+                            <option value="CCDEE">CCDEE</option>
+                            <option value="CCDEe">CCDEe</option>
+                            <option value="CcDEE">CcDEE</option>
+                            <option value="CcDEe">CcDEe</option>
+                            <option value="Ccddee">Ccddee</option>
+                            <option value="CCddee">CCddee</option>
+                            <option value="ccddEe">ccddEe</option>
+                            <option value="ccddEE">ccddEE</option>
+                            <option value="ccddee">ccddee</option>
+                            <option value="CcddEe">CcddEe</option>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="kell" class="form-label">Kell</label>
-                        <input type="text" class="form-control" name="kell" id="kell" required>
+                        <select class="form-control" id="kell" name="kell" required>
+                            <option value="K+k+">K+k+</option>
+                            <option value="K+k-">K+k-</option>
+                            <option value="K-k+">K-k+</option>
+                            <option value="K-k-">K-k-</option>
+                            <option value="Kp(a+b+)">Kp(a+b+)</option>
+                            <option value="Kp(a-b+)">Kp(a-b+)</option>
+                            <option value="Kk">Kk</option>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="nome" class="form-label">Nome</label>
@@ -72,7 +97,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="codicefiscale" class="form-label">Codice Fiscale</label>
-                        <input type="text" class="form-control" name="codicefiscale" id="codicefiscale" maxlength="16" required>
+                        <input type="text" class="form-control" name="codicefiscale" id="codicefiscale" maxlength="16" style="text-transform:uppercase" required>
                     </div>
                     <div class="mb-3">
                         <label for="indirizzo" class="form-label">Indirizzo</label>
@@ -121,7 +146,7 @@
             </thead>
             <tbody>
             {% for lDonatori in page_obj %}
-                <tr>
+                <tr class="text-center">
                     <td>{{ lDonatori.tessera }}</td>
                     <td>{{ lDonatori.grupposang }}</td>
                     <td>{{ lDonatori.fenotipo }}</td>
@@ -158,6 +183,6 @@
         {% endif %}
         </ul>
     </nav>
-    <p class="text-end"><a href="{% url 'esporta' %}">Esporta dati in CSV</a></p>
+    <p class="text-end"><a href="{% url 'esporta_donatori' %}">Esporta dati in CSV</a></p>
 </div>
 {% endblock content %}

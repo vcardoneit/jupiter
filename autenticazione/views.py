@@ -2,8 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import logout as dlogout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as dlogin
-from django.http import HttpResponse
-from django.template import loader
+from django.contrib import messages
 
 
 @login_required
@@ -30,14 +29,17 @@ def login(request):
                 else:
                     return redirect("/")
             else:
-                template = loader.get_template('login.html')
-                context = {'error': "Errore, controlla le tue credenziali!"}
-                return HttpResponse(template.render(context, request))
+                messages.warning(request, "Errore, controlla le tue credenziali!")
+                return redirect('login')
         else:
             return render(request, "login.html")
 
 
 def resetOk(request):
-    template = loader.get_template('login.html')
-    context = {"changedpw": "La tua password è stata modificata con successo! Adesso puoi eseguire il login"}
-    return HttpResponse(template.render(context, request))
+    messages.success(request, "La tua password è stata modificata con successo! Adesso puoi eseguire il login")
+    return redirect('login')
+
+
+def requestOk(request):
+    messages.success(request, "Ti abbiamo inviato un'e-mail! (Se non l'hai ricevuta controlla la cartella spam)")
+    return redirect('login')

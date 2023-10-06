@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+
 <div class="container"> 
     <div class="row justify-content-center p-4">
          <div class="col-md-4 rounded-2 p-3" style="background-color:#ebebeb">
@@ -9,12 +10,10 @@
 
                 <input type="hidden" id="next" name="next" value="{{ request.GET.next }}">
 
-                {% if changedpw %}
-                <div class="alert alert-success" role="alert">{{ changedpw }}</div>
-                {% endif %}
-
-                {% if error %}
-                <div class="alert alert-danger" role="alert">{{ error }}</div>
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+                {% endfor %}
                 {% endif %}
 
                 <div class="mb-3">
@@ -26,10 +25,12 @@
                     <label for="password" class="form-label"><b>Password</b></label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
                 </div>
-
+                
                 <div class="mb-3 d-grid gap-2">
                     <input type="submit" name="submit" class="btn text-white" style="background-color: #cc0000;font-weight: 600;" value='Accedi'>
                 </div>
+
+                <p class="mb-0 text-end"><a class="text-decoration-none" href="{% url 'password_reset' %}">Password dimenticata?</a></p>
             </form>
         </div>
     </div>
