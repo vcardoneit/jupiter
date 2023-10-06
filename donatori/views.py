@@ -59,7 +59,7 @@ def aggiungi(request):
     if request.user.is_staff:
         upassword = get_random_string(length=16)
         email = request.POST.get('email')
-        user = User.objects.create_user(username=email, email=email, password=upassword)
+        User.objects.create_user(username=email, email=email, password=upassword)
 
         lDonatori = mDonatori.objects.create()
 
@@ -80,7 +80,7 @@ def aggiungi(request):
 
         set_password_form = PasswordResetForm({'email': email})
         if set_password_form.is_valid():
-            set_password_form.save(request=request,use_https=False,html_email_template_name='pw_reset_email.html',subject_template_name="pw_reset_email_subjet.txt")
+            set_password_form.save(request=request, use_https=False, html_email_template_name='pw_reset_email.html', subject_template_name="pw_reset_email_subjet.txt")
 
         return redirect("donatori")
     else:

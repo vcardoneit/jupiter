@@ -36,6 +36,7 @@ def login(request):
         else:
             return render(request, "login.html")
 
+
 def resetOk(request):
     template = loader.get_template('login.html')
     context = {"changedpw": "La tua password è stata modificata con successo! Adesso puoi eseguire il login"}

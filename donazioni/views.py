@@ -21,7 +21,7 @@ def salva(request):
 
         lDonazioni.save()
         return redirect("donazioni")
-    return("/")
+    return ("/")
 
 
 @login_required
@@ -135,4 +135,4 @@ def esporta(request):
 
         return response
     else:
-        return("/")
+        return ("/")
