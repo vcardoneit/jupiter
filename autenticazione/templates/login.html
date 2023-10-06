@@ -9,6 +9,10 @@
 
                 <input type="hidden" id="next" name="next" value="{{ request.GET.next }}">
 
+                {% if changedpw %}
+                <div class="alert alert-success" role="alert">{{ changedpw }}</div>
+                {% endif %}
+
                 {% if error %}
                 <div class="alert alert-danger" role="alert">{{ error }}</div>
                 {% endif %}

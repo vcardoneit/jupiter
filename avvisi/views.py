@@ -7,17 +7,20 @@ from donatori.models import donatori
 
 @login_required
 def avvisi(request):
-    if request.method == 'POST' and 'messaggio' in request.POST:
+    if request.user.is_staff:
+        if request.method == 'POST' and 'messaggio' in request.POST:
 
-        oggetto = request.POST.get('oggetto')
-        messaggio = request.POST.get('messaggio')
-        fromEmail = os.getenv("EMAIL_HOST_USER")
-        emailDonatori = donatori.objects.values_list("email", flat=True)
+            oggetto = request.POST.get('oggetto')
+            messaggio = request.POST.get('messaggio')
+            fromEmail = os.getenv("EMAIL_HOST_USER")
+            emailDonatori = donatori.objects.values_list("email", flat=True)
 
-        messaggi = [(oggetto, messaggio, fromEmail, [dest]) for dest in emailDonatori]
+            messaggi = [(oggetto, messaggio, fromEmail, [dest]) for dest in emailDonatori]
 
-        send_mass_mail(messaggi)
+            send_mass_mail(messaggi)
 
-        return redirect("avvisi")
+            return redirect("avvisi")
+        else:
+            return render(request, "avvisi.html")
     else:
-        return render(request, "avvisi.html")
+        return redirect("/")

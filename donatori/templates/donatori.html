@@ -31,7 +31,7 @@
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Aggiungi Donatore</h1>
             </div>
             <div class="modal-body">
-                <form method="post" action="{% url 'donatori' %}">
+                <form method="post" action="{% url 'aggiungi' %}">
                     {% csrf_token %}
                     <div class="mb-3">
                         <label for="grupposanguigno" class="form-label">Gruppo Sanguigno</label>

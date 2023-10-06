@@ -1,0 +1,17 @@
+{% autoescape off %}
+Benvenuto!
+<br><br>
+Per impostare una password visita questa pagina:    
+<br><br>
+{% block reset_link %}
+<a href="{{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}">{{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}</a>
+{% endblock %}
+<br><br>
+Il tuo nome utente:  {{ user.get_username }}
+<br><br><br>
+<b>Informativa sulla Privacy - come previsto ai sensi dell’art. 13 del Regolamento UE 679/2016.</b>
+<br>
+Si precisa che le informazioni contenute in questo messaggio sono riservate e ad uso esclusivo del destinatario.
+Qualora questo messaggio Le fosse pervenuto per errore, La preghiamo di eliminarlo senza copiarlo e di non inoltrarlo a terzi, dandocene gentilmente comunicazione.
+Grazie per la collaborazione.
+{% endautoescape %}

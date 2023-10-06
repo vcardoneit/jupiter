@@ -6,7 +6,7 @@
 {% endif %}
 <div class="text-center justify-content-center">
     <div class="pt-3">
-
+        {% if request.user.is_staff %}
         <input type="submit" name="submit" class="btn text-white" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="background-color: #137935;font-weight: 600;" value='Aggiungi Donazione'>
   
         <div class="row justify-content-center m-0">
@@ -25,7 +25,7 @@
                 </div>
             </form>
         </div>
-
+        {% endif %}
     </div>
 </div>
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -71,10 +71,12 @@
         <table class="table table-bordered text-nowrap">
             <thead>
                 <tr class="text-center">
+                    {% if request.user.is_staff %}
                     <th scope="col">ID Donazione</th>
                     <th scope="col">Tessera Donatore</th>
                     <th scope="col">Nome</th>
                     <th scope="col">Cognome</th>
+                    {% endif %}
                     <th scope="col">Data</th>
                     <th scope="col">Tipo</th>
                     <th scope="col">Quantitativo</th>
@@ -83,10 +85,12 @@
             <tbody>
             {% for lDonatori in page_obj %}
                 <tr>
+                    {% if request.user.is_staff %}
                     <td>{{ lDonatori.id }}</td>
                     <td>{{ lDonatori.donatore_id }}</td>
                     <td>{{ lDonatori.donatore.nome }}</td>
                     <td>{{ lDonatori.donatore.cognome }}</td>
+                    {% endif %}
                     <td>{{ lDonatori.data|date:"d/m/Y" }}</td>
                     <td>{{ lDonatori.tipo }}</td>
                     <td>{{ lDonatori.quantitativo }}</td>
@@ -113,7 +117,9 @@
         {% endif %}
         </ul>
     </nav>
+    {% if request.user.is_staff %}
     <p class="text-end"><a href="{% url 'esporta' %}">Esporta dati in CSV</a></p>
+    {% endif %}
 </div>
 
 {% endblock content %}

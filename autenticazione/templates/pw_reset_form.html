@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if validlink %}
+
+<div class="alert alert-success m-3 text-center" role="alert">Inserisci la nuova password due volte, per verificare di averla scritta correttamente.</div>
+
+<div class="container"> 
+    <div class="row justify-content-center p-2">
+         <div class="col-md-4 rounded-2 p-3" style="background-color:#ebebeb">
+            <form method="post">
+                {% csrf_token %}
+
+                <input type="hidden" autocomplete="username" value="{{ form.user.get_username }}">
+
+                {% if form.errors %}
+                <div class="alert alert-danger text-center" role="alert">Errore! Riprova :(</div>
+                {% endif %}
+
+                <div class="mb-3">
+                    <label for="{{ form.new_password1.name }}" class="form-label"><b>Nuova password</b></label>
+                    <input type="password" class="form-control" id="{{ form.new_password1.name }}" name="{{ form.new_password1.name }}" placeholder="Password" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="{{ form.new_password2.name }}" class="form-label"><b>Conferma password</b></label>
+                    <input type="password" class="form-control" id="{{ form.new_password2.name }}" name="{{ form.new_password2.name }}" placeholder="Password" required>
+                </div>
+
+                <div class="mb-3 d-grid gap-2">
+                    <input type="submit" name="submit" class="btn text-white" style="background-color: #cc0000;font-weight: 600;" value='Accedi'>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% else %}
+<div class="alert alert-danger m-3 text-center" role="alert">Il link per la reimpostazione della password non è valido. Richiedi una nuova reimpostazione della password.</div>
+{% endif %}
+
+{% endblock %}
