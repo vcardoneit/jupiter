@@ -535,3 +535,7 @@ FodyWeavers.xsd
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+Dockerfile
+docker-compose.yml
+nginx/
