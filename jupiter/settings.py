@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'avvisi',
     'donatori',
     'donazioni',
+    'statistiche',
 ]
 
 MIDDLEWARE = [

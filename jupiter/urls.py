@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include('avvisi.urls')),
     path('', include('donatori.urls')),
     path('', include('donazioni.urls')),
+    path('', include('statistiche.urls')),
 ]
