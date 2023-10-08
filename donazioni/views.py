@@ -1,12 +1,11 @@
 import csv
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.core.paginator import Paginator
-from django.template import loader
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from donatori.models import donatori as mDonatori
 from .models import donazioni as mDonazioni
-from django.contrib import messages
 
 
 @login_required
@@ -33,21 +32,17 @@ def donazioni(request):
             messages.success(request, "Scheda donazione eliminata con successo!")
             return redirect('donazioni')
         else:
-            template = loader.get_template('donazioni.html')
             lDonazioni = mDonazioni.objects.all().order_by('-id')
             paginator = Paginator(lDonazioni, 50)
             page_number = request.GET.get("p")
             page_obj = paginator.get_page(page_number)
-            context = {"page_obj": page_obj}
-            return HttpResponse(template.render(context, request))
+            return render(request, "donazioni.html", {'page_obj': page_obj})
     else:
-        template = loader.get_template('donazioni.html')
         lDonazioni = mDonazioni.objects.filter(donatore__email=request.user.email).order_by('-id')
         paginator = Paginator(lDonazioni, 50)
         page_number = request.GET.get("p")
         page_obj = paginator.get_page(page_number)
-        context = {"page_obj": page_obj}
-        return HttpResponse(template.render(context, request))
+        return render(request, "donazioni.html", {'page_obj': page_obj})
 
 
 @login_required
@@ -60,9 +55,7 @@ def modifica(request):
             return redirect('donazioni')
         else:
             lDonazioni = mDonazioni.objects.get(id=donazioneMod)
-            template = loader.get_template('modificaDonazione.html')
-            context = {'donazione': lDonazioni}
-            return HttpResponse(template.render(context, request))
+            return render(request, "modificaDonazione.html", {'donazione': lDonazioni})
     else:
         return redirect("/")
 
@@ -88,8 +81,6 @@ def aggiungi(request):
 @login_required
 def storico(request):
     if request.user.is_staff:
-        template = loader.get_template('storicoDonazioni.html')
-
         if not mDonatori.objects.filter(pk=request.POST.get('visualDonazioni')).exists():
             messages.warning(request, "Errore: Numero tessera non valido!")
             return redirect('donazioni')
@@ -99,8 +90,7 @@ def storico(request):
             paginator = Paginator(lDonazioni, 50)
             page_number = request.GET.get("p")
             page_obj = paginator.get_page(page_number)
-            context = {"page_obj": page_obj, "tessera": numeroTessera}
-            return HttpResponse(template.render(context, request))
+            return render(request, "storicoDonazioni.html", {'page_obj': page_obj, "tessera": numeroTessera})
     else:
         return redirect("/")
 

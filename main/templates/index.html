@@ -2,14 +2,14 @@
 
 {% block content %}
 {% load static %}
-<div class="container mt-4">
+<div class="container mt-2">
     {% if request.user.is_staff %}
 	<div class="row justify-content-center text-center">
-		<div class="col-auto m-4 p-3 rounded-4" style="background-color: #cc0000;"><a class="text-decoration-none text-white" href="donatori"><img class="img-fluid p-3" width="150px" height="150px" src="{% static 'donatori.png' %}"><h2>Donatori</h2></a></div>
-		<div class="col-auto m-4 p-3 rounded-4" style="background-color: #cc0000;"><a class="text-decoration-none text-white" href="donazioni"><img class="img-fluid p-3" width="150px" height="150px" src="{% static 'donazioni.png' %}"><h2>Donazioni</h2></a></div>
-		<div class="col-auto m-4 p-3 rounded-4" style="background-color: #cc0000;"><a class="text-decoration-none text-white" href="avvisi"><img class="img-fluid p-3" width="150px" height="150px" src="{% static 'avvisi.png' %}"><h2>Avvisi</h2></a></div>
-		<div class="col-auto m-4 p-3 rounded-4" style="background-color: #cc0000;"><a class="text-decoration-none text-white" href="statistiche"><img class="img-fluid p-3" width="150px" height="150px" src="{% static 'statistiche.png' %}"><h2>Statistiche</h2></a></div>
-		<div class="col-auto m-4 p-3 rounded-4" style="background-color: #cc0000;"><a class="text-decoration-none text-white" href="logout"><img class="img-fluid p-3" width="150px" height="150px" src="{% static 'logout.png' %}"><h2>Logout</h2></a></div>
+		<div class="col-auto m-4 p-4 rounded-4" style="background-color: #cc0000;"><a class="text-decoration-none text-white" href="donatori"><img class="img-fluid p-3" width="150px" height="150px" src="{% static 'donatori.png' %}"><h2>Donatori</h2></a></div>
+		<div class="col-auto m-4 p-4 rounded-4" style="background-color: #cc0000;"><a class="text-decoration-none text-white" href="donazioni"><img class="img-fluid p-3" width="150px" height="150px" src="{% static 'donazioni.png' %}"><h2>Donazioni</h2></a></div>
+		<div class="col-auto m-4 p-4 rounded-4" style="background-color: #cc0000;"><a class="text-decoration-none text-white" href="avvisi"><img class="img-fluid p-3" width="150px" height="150px" src="{% static 'avvisi.png' %}"><h2>Avvisi</h2></a></div>
+		<div class="col-auto m-4 p-4 rounded-4" style="background-color: #cc0000;"><a class="text-decoration-none text-white" href="statistiche"><img class="img-fluid p-3" width="150px" height="150px" src="{% static 'statistiche.png' %}"><h2>Statistiche</h2></a></div>
+		<div class="col-auto m-4 p-4 rounded-4" style="background-color: #cc0000;"><a class="text-decoration-none text-white" href="logout"><img class="img-fluid p-3" width="150px" height="150px" src="{% static 'logout.png' %}"><h2>Logout</h2></a></div>
 	</div>
     {% endif %}
 
@@ -30,8 +30,8 @@
         </div>
     </div>
 	<div class="row justify-content-center text-center">
-		<div class="col-auto m-4 p-3 rounded-4" style="background-color: #cc0000;"><a class="text-decoration-none text-white" href="donazioni"><img class="img-fluid p-3" width="150px" height="150px" src="{% static 'donazioni.png' %}"><h2>Donazioni</h2></a></div>
-		<div class="col-auto m-4 p-3 rounded-4" style="background-color: #cc0000;"><a class="text-decoration-none text-white" href="logout"><img class="img-fluid p-3" width="150px" height="150px" src="{% static 'logout.png' %}"><h2>Logout</h2></a></div>
+		<div class="col-auto m-4 p-4 rounded-4" style="background-color: #cc0000;"><a class="text-decoration-none text-white" href="donazioni"><img class="img-fluid p-3" width="150px" height="150px" src="{% static 'donazioni.png' %}"><h2>Donazioni</h2></a></div>
+		<div class="col-auto m-4 p-4 rounded-4" style="background-color: #cc0000;"><a class="text-decoration-none text-white" href="logout"><img class="img-fluid p-3" width="150px" height="150px" src="{% static 'logout.png' %}"><h2>Logout</h2></a></div>
 	</div>
     {% endif %}
 

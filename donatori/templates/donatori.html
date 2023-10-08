@@ -35,6 +35,10 @@
                 <form method="post" action="{% url 'aggiungi_donatore' %}">
                     {% csrf_token %}
                     <div class="mb-3">
+                        <label for="dataiscrizione" class="form-label">Data Iscrizione</label>
+                        <input type="date" class="form-control" name="dataiscrizione" id="dataiscrizione" required>
+                    </div>
+                    <div class="mb-3">
                         <label for="grupposanguigno" class="form-label">Gruppo Sanguigno</label>
                         <select class="form-control" name="grupposanguigno" id="grupposanguigno" required>
                             <option value="A+">A+</option>
@@ -130,6 +134,7 @@
             <thead>
                 <tr class="text-center">
                     <th scope="col">Tessera</th>
+                    <th scope="col">Data Iscrizione</th>
                     <th scope="col">Gruppo Sanguigno</th>
                     <th scope="col">Fenotipo</th>
                     <th scope="col">Kell</th>
@@ -148,6 +153,7 @@
             {% for lDonatori in page_obj %}
                 <tr class="text-center">
                     <td>{{ lDonatori.tessera }}</td>
+                    <td>{{ lDonatori.dataiscrizione|date:"d/m/Y" }}</td>
                     <td>{{ lDonatori.grupposang }}</td>
                     <td>{{ lDonatori.fenotipo }}</td>
                     <td>{{ lDonatori.kell }}</td>

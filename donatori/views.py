@@ -1,26 +1,23 @@
 import csv
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.core.paginator import Paginator
-from django.contrib.auth.decorators import login_required
 from django.utils.crypto import get_random_string
 from django.contrib.auth.models import User
-from .models import donatori as mDonatori
-from django.template import loader
 from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from .models import donatori as mDonatori
 
 
 @login_required
 def donatori(request):
     if request.user.is_staff:
-        template = loader.get_template('donatori.html')
         lDonatori = mDonatori.objects.all().order_by('-tessera')
         paginator = Paginator(lDonatori, 50)
         page_number = request.GET.get("p")
         page_obj = paginator.get_page(page_number)
-        context = {"page_obj": page_obj}
-        return HttpResponse(template.render(context, request))
+        return render(request, "donatori.html", {'page_obj': page_obj})
     else:
         return redirect("/")
 
@@ -48,9 +45,7 @@ def modifica(request):
             return redirect('donatori')
         else:
             lDonatori = mDonatori.objects.get(tessera=tesseraMod)
-            template = loader.get_template('modifica.html')
-            context = {'donatore': lDonatori}
-            return HttpResponse(template.render(context, request))
+            return render(request, "modifica.html", {'donatore': lDonatori})
     else:
         return redirect("/")
 
@@ -62,6 +57,7 @@ def aggiungi(request):
         email = request.POST.get('email')
         User.objects.create_user(username=email, email=email, password=upassword)
         lDonatori = mDonatori.objects.create()
+        lDonatori.dataiscrizione = request.POST.get('dataiscrizione')
         lDonatori.grupposang = request.POST.get('grupposanguigno')
         lDonatori.fenotipo = request.POST.get('fenotipo')
         lDonatori.kell = request.POST.get('kell')
@@ -90,6 +86,7 @@ def salva(request):
     if request.user.is_staff:
         tesseraMod = request.POST.get('tesseraMod')
         lDonatori = mDonatori.objects.get(tessera=tesseraMod)
+        lDonatori.dataiscrizione = request.POST.get('dataiscrizione')
         lDonatori.grupposang = request.POST.get('grupposanguigno')
         lDonatori.fenotipo = request.POST.get('fenotipo')
         lDonatori.kell = request.POST.get('kell')
@@ -115,9 +112,9 @@ def esporta(request):
         response = HttpResponse(content_type="text/csv", headers={"Content-Disposition": 'attachment; filename="donatori.csv"'})
         lDonatori = mDonatori.objects.all()
         writer = csv.writer(response)
-        writer.writerow(["tessera", "grupposang", "fenotipo", "kell", "nome", "cognome", "datadinascita", "luogodinascita", "codicefiscale", "indirizzo", "comune", "tel", "email"])
+        writer.writerow(["tessera", "dataiscrizione", "grupposang", "fenotipo", "kell", "nome", "cognome", "datadinascita", "luogodinascita", "codicefiscale", "indirizzo", "comune", "tel", "email"])
         for x in lDonatori:
-            writer.writerow([x.tessera, x.grupposang, x.fenotipo, x.kell, x.nome, x.cognome, x.datadinascita, x.luogodinascita, x.codicefiscale, x.indirizzo, x.comune, x.tel, x.email])
+            writer.writerow([x.tessera, x.dataiscrizione, x.grupposang, x.fenotipo, x.kell, x.nome, x.cognome, x.datadinascita, x.luogodinascita, x.codicefiscale, x.indirizzo, x.comune, x.tel, x.email])
 
         return response
     else:

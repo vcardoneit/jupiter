@@ -8,6 +8,10 @@
         {% csrf_token %}
         <input type="hidden" id="tesseraMod" name="tesseraMod" value="{{ donatore.tessera }}">
         <div class="mb-3">
+            <label for="dataiscrizione" class="form-label">Data Iscrizione</label>
+            <input type="date" class="form-control" name="dataiscrizione" id="dataiscrizione" required>
+        </div>
+        <div class="mb-3">
             <label for="grupposanguigno" class="form-label">Gruppo Sanguigno</label>
             <select class="form-control" name="grupposanguigno" id="grupposanguigno" required>
                 <option value="A+" {% if donatore.grupposang == "A+" %}selected{% endif %}>A+</option>

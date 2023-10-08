@@ -3,6 +3,7 @@ from django.db import models
 
 class donatori(models.Model):
     tessera = models.AutoField(auto_created=True, primary_key=True)
+    dataiscrizione = models.DateField(null=True)
     grupposang = models.CharField(max_length=3)
     fenotipo = models.CharField(max_length=255)
     kell = models.CharField(max_length=255)

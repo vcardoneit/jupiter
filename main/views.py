@@ -1,7 +1,5 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.template import loader
 from donatori.models import donatori as mDonatori
 from donazioni.models import donazioni as mDonazioni
 
@@ -13,7 +11,5 @@ def index(request):
     else:
         donatore = mDonatori.objects.get(email=request.user.username)
         totDonazioni = mDonazioni.objects.filter(donatore_id=donatore.tessera).count()
-        template = loader.get_template('index.html')
         print(totDonazioni)
-        context = {"donatore": donatore, "totDonazioni": totDonazioni}
-        return HttpResponse(template.render(context, request))
+        return render(request, "index.html", {"donatore": donatore, "totDonazioni": totDonazioni})
