@@ -32,6 +32,7 @@ docker compose -f docker-compose.yml exec web python manage.py migrate --noinput
 | `EMAIL_HOST` |
 | `EMAIL_HOST_USER` |
 | `EMAIL_HOST_PASSWORD` |
+| `DEFAULT_FROM_EMAIL` |
 | `SESSION_COOKIE_SECURE` |
 | `CSRF_COOKIE_SECURE` |
 

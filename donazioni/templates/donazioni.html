@@ -17,16 +17,16 @@
         <input type="submit" name="submit" class="btn text-white" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="background-color: #137935;font-weight: 600;" value='Aggiungi Donazione'>
   
         <div class="row justify-content-center m-0">
-            <form class="col-md-3" method="post" action="{% url 'modifica_donazione' %}">
+            <form class="col-lg-3" method="post" action="{% url 'modifica_donazione' %}">
                 {% csrf_token %}
                 <div class="input-group p-3">
                     <input type="text" class="form-control shadow-none" name="donazioneMod" id="donazioneMod" placeholder="ID Donazione" aria-label="ID Donazione" required>
                     <button type="submit" class="btn text-white" style="background-color: #cc0000">Modifica Donazione</button>
                 </div>
             </form>
-            <form class="col-md-3" method="post" action="{% url 'storico_donazioni' %}">
+            <form class="col-lg-3" method="post" action="{% url 'storico_donazioni' %}">
                 {% csrf_token %}
-                <div class="input-group p-3">
+                <div class="input-group pt-md-3 pe-3 ps-3 pb-3">
                     <input type="text" class="form-control shadow-none" name="visualDonazioni" id="visualDonazioni" placeholder="Tessera Donatore" aria-label="Tessera Donatore" required>
                     <button type="submit" class="btn text-white" style="background-color: #cc0000">Storico Donazioni</button>
                 </div>
@@ -107,7 +107,7 @@
         </table>
     </div>
     
-    <nav aria-label="Page navigation example">
+    <nav class="mt-3" aria-label="pagination">
         <ul class="pagination justify-content-center shadow-none">
         {% if page_obj.has_previous %}
             <li class="page-item">
