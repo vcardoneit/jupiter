@@ -11,7 +11,7 @@
             <form class="col-lg-4" method="post" action="{% url 'modifica_donatore' %}">
                 {% csrf_token %}
                 <div class="input-group p-3">
-                    <input type="text" class="form-control shadow-none" name="tesseraMod" id="tesseraMod" placeholder="Numero Tessera" aria-label="Numero Tessera" required>
+                    <input type="number" class="form-control shadow-none" name="tesseraMod" id="tesseraMod" placeholder="Numero Tessera" aria-label="Numero Tessera" required>
                     <button type="submit" class="btn text-white" style="background-color: #cc0000">Modifica Tessera</button>
                 </div>
                 

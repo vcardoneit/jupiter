@@ -9,7 +9,7 @@
         <input type="hidden" id="tesseraMod" name="tesseraMod" value="{{ donatore.tessera }}">
         <div class="mb-3">
             <label for="dataiscrizione" class="form-label">Data Iscrizione</label>
-            <input type="date" class="form-control" name="dataiscrizione" id="dataiscrizione" required>
+            <input type="date" class="form-control" name="dataiscrizione" value="{{ donatore.dataiscrizione|date:'Y-m-d' }}" id="dataiscrizione" required>
         </div>
         <div class="mb-3">
             <label for="grupposanguigno" class="form-label">Gruppo Sanguigno</label>
