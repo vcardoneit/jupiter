@@ -27,7 +27,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          platforms: linux/386, linux/amd64, linux/arm/v7, linux/arm64/v8
+          platforms: linux/amd64, linux/arm64/v8
           push: true
           tags: ghcr.io/vcardoneit/jupiter-web
 
@@ -35,6 +35,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: ./nginx
-          platforms: linux/386, linux/amd64, linux/arm/v7, linux/arm64/v8
+          platforms: linux/amd64, linux/arm64/v8
           push: true
           tags: ghcr.io/vcardoneit/jupiter-nginx

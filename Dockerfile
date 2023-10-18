@@ -1,4 +1,4 @@
-FROM python:3.11.4-slim-buster
+FROM python:3.12-slim-bullseye
 
 RUN addgroup --system jupiter && adduser --system --group jupiter
 
