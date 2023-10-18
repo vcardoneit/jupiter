@@ -10,13 +10,46 @@
 - **Esporta i dati in CSV**
 - **Molto altro..**
 
-## Build
-```
-docker compose -f docker-compose.yml up -d --build
-docker compose -f docker-compose.yml exec web python manage.py migrate --noinput
+## Installation with Docker
+#### Docker compose
+```yaml
+version: "3.8"
+
+services:
+  web:
+    image: 'ghcr.io/vcardoneit/jupiter-web:latest'
+    command: gunicorn jupiter.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - static_volume:/home/jupiter/web/staticfiles
+    expose:
+      - 8000
+    env_file:
+      - stack.env
+    depends_on:
+      - db
+  db:
+    image: 'postgres:15'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - stack.env
+  nginx:
+    image: 'ghcr.io/vcardoneit/jupiter-nginx:latest'
+    volumes:
+      - static_volume:/home/jupiter/web/staticfiles
+      - certs:/home/jupiter/ssl
+    ports:
+      - 1642:443
+    depends_on:
+      - web
+
+volumes:
+  postgres_data:
+  static_volume:
+  certs:
 ```
 
-## Environment Variables (web)
+#### Environment Variables
 | Environment Variable  |
 | ------------- |
 | `DEBUG` |
@@ -35,10 +68,6 @@ docker compose -f docker-compose.yml exec web python manage.py migrate --noinput
 | `DEFAULT_FROM_EMAIL` |
 | `SESSION_COOKIE_SECURE` |
 | `CSRF_COOKIE_SECURE` |
-
-## Environment Variables (db)
-| Environment Variable  |
-| ------------- |
 | `POSTGRES_USER` |
 | `POSTGRES_PASSWORD` |
 | `POSTGRES_DB` |
