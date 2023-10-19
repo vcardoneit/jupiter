@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container p-3" style="background-color: rgb(219, 219, 219);">
+    <h2 align="center">Modifica Predonazione</h2>
+    <h4 align="center">ID Numero {{ predonazione.id }}</h4>
+    <form method="post" action="{% url 'salva_predonazione' %}">
+        {% csrf_token %}
+        <input type="hidden" id="predonazioneMod" name="predonazioneMod" value="{{ predonazione.id }}">
+        <div class="mb-3">
+            <label for="nominativo" class="form-label">Nominativo</label>
+            <input type="text" class="form-control" name="nominativo" id="nominativo" value="{{ predonazione.nominativo }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="dataprelievo" class="form-label">Data Prelievo</label>
+            <input type="date" class="form-control" name="dataprelievo" id="dataprelievo" value="{{ predonazione.dataprelievo|date:'Y-m-d' }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="telefono" class="form-label">Telefono</label>
+            <input type="tel" class="form-control" name="telefono" id="telefono" maxlength="10" value="{{ predonazione.telefono }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" id="email" value="{{ predonazione.email }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="idoneo" class="form-label">Idoneo</label>
+            <input type="text" class="form-control" name="idoneo" id="idoneo" value="{{ predonazione.idoneo }}">
+        </div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="submit" class="btn text-white btn-lg" style="background-color: #137935">Salva</button>
+            <button type="button" class="btn text-white btn-lg" style="background-color: #cc0000" onclick="location.href = '/idoneita';">Annulla</button>
+        </div>
+    </form>
+</div> 
+{% endblock content %}

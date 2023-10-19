@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="text-center justify-content-center">
+    <div class="pt-3">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="row justify-content-center pe-3 ps-3">
+            <div class="col-md-3">
+                <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <input type="submit" name="submit" class="btn text-white" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="background-color: #137935;font-weight: 600;" value='Aggiungi Predonazione'>
+        <div class="row justify-content-center m-0">
+            <form class="col-lg-4" method="post" action="{% url 'modifica_predonazione' %}">
+                {% csrf_token %}
+                <div class="input-group p-3">
+                    <input type="number" class="form-control shadow-none" name="idpred" id="idpred" placeholder="ID Predonazione" aria-label="ID Predonazione" required>
+                    <button type="submit" class="btn text-white" style="background-color: #cc0000">Modifica</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Aggiungi Predonazione</h1>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{% url 'aggiungi_predonazione' %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="nominativo" class="form-label">Nominativo</label>
+                        <input type="text" class="form-control" name="nominativo" id="nominativo" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="dataprelievo" class="form-label">Data Prelievo</label>
+                        <input type="date" class="form-control" name="dataprelievo" id="dataprelievo" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="telefono" class="form-label">Telefono</label>
+                        <input type="tel" class="form-control" name="telefono" id="telefono" maxlength="10" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" name="email" id="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="idoneo" class="form-label">Idoneo</label>
+                        <input type="text" class="form-control" name="idoneo" id="idoneo">
+                    </div>
+
+                    <button type="submit" class="btn text-white" style="background-color: #137935">Aggiungi</button>
+                    <button type="button" class="btn text-white" data-bs-dismiss="modal" style="background-color: #cc0000">Annulla</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="table-responsive">
+        <table class="table table-bordered text-nowrap">
+            <thead>
+                <tr class="text-center">
+                    <th scope="col">ID</th>
+                    <th scope="col">Nominativo</th>
+                    <th scope="col">Data Prelievo</th>
+                    <th scope="col">Telefono</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Idoneo</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for listapred in page_obj %}
+                <tr class="text-center">
+                    <td>{{ listapred.id }}</td>
+                    <td>{{ listapred.nominativo }}</td>
+                    <td>{{ listapred.dataprelievo }}</td>
+                    <td>{{ listapred.telefono }}</td>
+                    <td>{{ listapred.email }}</td>
+                    <td>{{ listapred.idoneo }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <nav class="mt-3" aria-label="pagination">
+        <ul class="pagination justify-content-center shadow-none">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link shadow-none" href="?p={{ page_obj.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+            </li>
+        {% endif %}
+        
+        <li class="page-item"><a class="page-link shadow-none active">{{ page_obj.number }}</a></li>
+
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link shadow-none" href="?p={{ page_obj.next_page_number }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+            </li>
+        {% endif %}
+        </ul>
+    </nav>
+</div>
+
+{% endblock content %}

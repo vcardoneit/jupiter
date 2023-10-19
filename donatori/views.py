@@ -61,7 +61,7 @@ def aggiungi(request):
 
         if 'fototessera' in request.FILES:
             fototesseraI = request.FILES["fototessera"]
-            lDonatori.fototessera = InMemoryUploadedFile(fototesseraI, None, str(lDonatori.tessera)+fototesseraI.name, fototesseraI.file, fototesseraI.size, fototesseraI.charset)
+            lDonatori.fototessera = InMemoryUploadedFile(fototesseraI, None, str(lDonatori.tessera) + fototesseraI.name, fototesseraI.file, fototesseraI.size, fototesseraI.charset)
 
         lDonatori.dataiscrizione = request.POST.get('dataiscrizione')
         lDonatori.grupposang = request.POST.get('grupposanguigno')
@@ -95,7 +95,7 @@ def salva(request):
 
         if 'fototessera' in request.FILES:
             fototesseraI = request.FILES["fototessera"]
-            lDonatori.fototessera = InMemoryUploadedFile(fototesseraI, None, str(lDonatori.tessera)+fototesseraI.name, fototesseraI.file, fototesseraI.size, fototesseraI.charset)
+            lDonatori.fototessera = InMemoryUploadedFile(fototesseraI, None, str(lDonatori.tessera) + fototesseraI.name, fototesseraI.file, fototesseraI.size, fototesseraI.charset)
 
         lDonatori.dataiscrizione = request.POST.get('dataiscrizione')
         lDonatori.grupposang = request.POST.get('grupposanguigno')

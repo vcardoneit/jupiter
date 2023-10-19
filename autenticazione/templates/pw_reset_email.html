@@ -1,10 +1,10 @@
 {% autoescape off %}
 Benvenuto donatore, benvenuta donatrice!
 <br><br>
-Per impostare una nuova password visita questa pagina:    
+Di seguito troverai un link per impostare la password d'accesso alla piattaforma Jupiter con la quale potrai vedere i tuoi dati e scaricare la tua tessera!    
 <br><br>
 {% block reset_link %}
-<a href="{{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}">{{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}</a>
+<a href="https://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}">https://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}</a>
 {% endblock %}
 <br><br>
 Il tuo nome utente:  {{ user.get_username }}
