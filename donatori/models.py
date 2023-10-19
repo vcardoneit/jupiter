@@ -16,3 +16,4 @@ class donatori(models.Model):
     comune = models.CharField(max_length=255)
     tel = models.CharField(max_length=255)
     email = models.EmailField()
+    fototessera = models.ImageField(upload_to='fototessere/', default='default.jpg')

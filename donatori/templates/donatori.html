@@ -32,8 +32,12 @@
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Aggiungi Donatore</h1>
             </div>
             <div class="modal-body">
-                <form method="post" action="{% url 'aggiungi_donatore' %}">
+                <form method="post" action="{% url 'aggiungi_donatore' %}" enctype="multipart/form-data">
                     {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="fototessera" class="form-label">Fototessera</label>
+                        <input class="form-control" type="file" name="fototessera">
+                      </div>
                     <div class="mb-3">
                         <label for="dataiscrizione" class="form-label">Data Iscrizione</label>
                         <input type="date" class="form-control" name="dataiscrizione" id="dataiscrizione" required>

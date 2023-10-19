@@ -1,7 +1,12 @@
-from django.shortcuts import render
+import os
+from jupiter.settings import BASE_DIR
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from donatori.models import donatori as mDonatori
 from donazioni.models import donazioni as mDonazioni
+from PIL import Image, ImageDraw, ImageFont
+from io import BytesIO
 
 
 @login_required
@@ -11,5 +16,76 @@ def index(request):
     else:
         donatore = mDonatori.objects.get(email=request.user.username)
         totDonazioni = mDonazioni.objects.filter(donatore_id=donatore.tessera).count()
-        print(totDonazioni)
         return render(request, "index.html", {"donatore": donatore, "totDonazioni": totDonazioni})
+
+
+@login_required
+def tessera(request):
+    if request.user.is_staff:
+        return redirect("/")
+    else:
+        donatore = mDonatori.objects.get(email=request.user.username)
+
+        img = Image.open(os.path.join(BASE_DIR, 'main/static', 'template.png'))
+        draw = ImageDraw.Draw(img)
+
+        text = donatore.nome + " " + donatore.cognome
+        text_color = (0, 0, 0)
+        font_size = 32
+        font = ImageFont.truetype("./arial.ttf", font_size)
+        text_position = (161, 175)
+        draw.text(text_position, text, fill=text_color, font=font)
+
+        text = str(donatore.datadinascita.strftime("%d/%m/%Y"))
+        text_color = (0, 0, 0)
+        font_size = 32
+        font = ImageFont.truetype("./arial.ttf", font_size)
+        text_position = (311, 225)
+        draw.text(text_position, text, fill=text_color, font=font)
+
+        text = donatore.email
+        text_color = (0, 0, 0)
+        font_size = 32
+        font = ImageFont.truetype("./arial.ttf", font_size)
+        text_position = (152, 275)
+        draw.text(text_position, text, fill=text_color, font=font)
+
+        text = donatore.grupposang
+        text_color = (0, 0, 0)
+        font_size = 32
+        font = ImageFont.truetype("./arial.ttf", font_size)
+        text_position = (374, 325)
+        draw.text(text_position, text, fill=text_color, font=font)
+
+        text = donatore.fenotipo
+        text_color = (0, 0, 0)
+        font_size = 32
+        font = ImageFont.truetype("./arial.ttf", font_size)
+        text_position = (205, 375)
+        draw.text(text_position, text, fill=text_color, font=font)
+
+        text = donatore.kell
+        text_color = (0, 0, 0)
+        font_size = 32
+        font = ImageFont.truetype("./arial.ttf", font_size)
+        text_position = (117, 425)
+        draw.text(text_position, text, fill=text_color, font=font)
+
+        text = str(donatore.tessera)
+        text_color = (0, 0, 0)
+        font_size = 32
+        font = ImageFont.truetype("./arial.ttf", font_size)
+        text_position = (176, 475)
+        draw.text(text_position, text, fill=text_color, font=font)
+
+        fototessera = Image.open(donatore.fototessera).resize((264, 340))
+        img.paste(fototessera, (702, 253))
+
+        image_buffer = BytesIO()
+        img.save(image_buffer, format="png")
+
+        nt = "Tessera " + donatore.nome + " " + donatore.cognome + ".png"
+
+        response = HttpResponse(image_buffer.getvalue(), content_type="image/png", headers={"Content-Disposition": f'attachment; filename={nt}'})
+
+        return response

@@ -3,4 +3,5 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name="index"),
+    path('tessera/', views.tessera, name="tessera"),
 ]

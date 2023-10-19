@@ -6,6 +6,7 @@ from django.utils.crypto import get_random_string
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.decorators import login_required
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.contrib import messages
 from .models import donatori as mDonatori
 
@@ -57,6 +58,11 @@ def aggiungi(request):
         email = request.POST.get('email')
         User.objects.create_user(username=email, email=email, password=upassword)
         lDonatori = mDonatori.objects.create()
+
+        if 'fototessera' in request.FILES:
+            fototesseraI = request.FILES["fototessera"]
+            lDonatori.fototessera = InMemoryUploadedFile(fototesseraI, None, str(lDonatori.tessera)+fototesseraI.name, fototesseraI.file, fototesseraI.size, fototesseraI.charset)
+
         lDonatori.dataiscrizione = request.POST.get('dataiscrizione')
         lDonatori.grupposang = request.POST.get('grupposanguigno')
         lDonatori.fenotipo = request.POST.get('fenotipo')
@@ -86,6 +92,11 @@ def salva(request):
     if request.user.is_staff:
         tesseraMod = request.POST.get('tesseraMod')
         lDonatori = mDonatori.objects.get(tessera=tesseraMod)
+
+        if 'fototessera' in request.FILES:
+            fototesseraI = request.FILES["fototessera"]
+            lDonatori.fototessera = InMemoryUploadedFile(fototesseraI, None, str(lDonatori.tessera)+fototesseraI.name, fototesseraI.file, fototesseraI.size, fototesseraI.charset)
+
         lDonatori.dataiscrizione = request.POST.get('dataiscrizione')
         lDonatori.grupposang = request.POST.get('grupposanguigno')
         lDonatori.fenotipo = request.POST.get('fenotipo')
