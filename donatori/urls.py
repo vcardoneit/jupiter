@@ -9,4 +9,5 @@ urlpatterns = [
     path('donatori/esporta/', views.esporta, name="esporta_donatori"),
     path('donatori/aggiungi/', views.aggiungi, name="aggiungi_donatore"),
     path('donatori/elimina/', views.elimina, name="elimina_donatore"),
+    path('donatori/scaricaTessera/', views.scaricaTessera, name="scarica_tessera"),
 ]
