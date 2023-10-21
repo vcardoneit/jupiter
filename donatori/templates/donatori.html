@@ -8,9 +8,19 @@
         <input type="submit" name="submit" class="btn text-white" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="background-color: #137935;font-weight: 600;" value='Aggiungi nuovo Donatore'>
   
         <div class="row justify-content-center m-0">
-            <form class="col-lg-4" method="post" action="{% url 'modifica_donatore' %}">
+            <form class="col-lg-3" method="post" action="{% url 'donatori' %}">
                 {% csrf_token %}
-                <div class="input-group pt-3 pe-3 ps-3">
+                <div class="input-group pt-3 pe-1 ps-1">
+                    <input type="text" class="form-control shadow-none" name="rCognome" id="rCognome" placeholder="Cognome" aria-label="Cognome">
+                    <button type="submit" class="btn text-white" style="background-color: #137935">Cerca</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="row justify-content-center m-0">
+            <form class="col-lg-3" method="post" action="{% url 'modifica_donatore' %}">
+                {% csrf_token %}
+                <div class="input-group pt-3 pe-1 ps-1">
                     <input type="number" class="form-control shadow-none" name="tesseraMod" id="tesseraMod" placeholder="Numero Tessera" aria-label="Numero Tessera" required>
                     <button type="submit" class="btn text-white" style="background-color: #cc0000">Modifica Tessera</button>
                 </div>
@@ -18,9 +28,9 @@
         </div>
 
         <div class="row justify-content-center m-0">
-            <form class="col-lg-4" method="post" action="{% url 'scarica_tessera' %}">
+            <form class="col-lg-3" method="post" action="{% url 'scarica_tessera' %}">
                 {% csrf_token %}
-                <div class="input-group p-3">
+                <div class="input-group pt-3 pb-3 pe-1 ps-1">
                     <input type="number" class="form-control shadow-none" name="numTessera" id="numTessera" placeholder="Numero Tessera" aria-label="Numero Tessera" required>
                     <button type="submit" class="btn text-white" style="background-color: #cc0000">Scarica Tessera</button>
                 </div>
