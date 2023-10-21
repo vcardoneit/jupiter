@@ -1,27 +1,20 @@
-FROM python:3.12-slim-bullseye
+FROM python:3.12-alpine
 
-RUN addgroup --system jupiter && adduser --system --group jupiter
+ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE 1
 
-ENV APP_HOME=/home/jupiter/web
+RUN mkdir -p /home/jupiter/web
 
-RUN mkdir -p $APP_HOME/staticfiles
+WORKDIR /home/jupiter/web
 
-WORKDIR $APP_HOME
+COPY . /home/jupiter/web
 
-COPY . $APP_HOME
-
-RUN apt-get update && apt-get install -y --no-install-recommends netcat
-RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 COPY ./entrypoint.sh .
-RUN sed -i 's/\r$//g'  $APP_HOME/entrypoint.sh
-RUN chmod +x  $APP_HOME/entrypoint.sh
-
-RUN chown -R jupiter:jupiter $APP_HOME
+RUN sed -i 's/\r$//g'  /home/jupiter/web/entrypoint.sh
+RUN chmod +x  /home/jupiter/web/entrypoint.sh
 
 RUN python manage.py collectstatic --no-input --clear
-
-USER jupiter
 
 ENTRYPOINT ["/home/jupiter/web/entrypoint.sh"]

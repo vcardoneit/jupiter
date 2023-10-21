@@ -522,6 +522,13 @@ FodyWeavers.xsd
 .vscode/*
 *.code-workspace
 
+.github/
+.github/*
+.gitignore
+.git
+README.md
+.dockerignore
+
 # Local History for Visual Studio Code
 .history/
 
