@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+{% if errore %}
+<div class="alert alert-danger m-4" role="alert"><h1 align=center>{{ errore }}</h1></div>
+{% endif %}
+
+{% if donatore %}
+<div class="alert alert-success m-4 text-center" role="alert">
+    <h1>Tessera valida!</h1><br>
+    <p>
+        <b>Numero Tessera:</b> {{ donatore.tessera }}<br>
+        <b>Donatore:</b> {{ donatore.nome }} {{ donatore.cognome }}<br>
+        <b>Data di nascita:</b> {{ donatore.datadinascita|date:"d/m/Y" }}
+    </p>
+</div>
+{% endif %}
+
+{% endblock %}

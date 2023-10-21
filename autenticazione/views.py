@@ -3,6 +3,7 @@ from django.contrib.auth import logout as dlogout
 from django.contrib.auth import authenticate, login as dlogin
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from donatori.models import donatori
 
 
 @login_required
@@ -43,3 +44,11 @@ def resetOk(request):
 def requestOk(request):
     messages.success(request, "Ti abbiamo inviato un'e-mail! (Se non l'hai ricevuta controlla la cartella spam)")
     return redirect('login')
+
+
+def verifyqr(request, verifycode):
+    if donatori.objects.filter(qrverify=verifycode).exists():
+        donatore = donatori.objects.get(qrverify=verifycode)
+        return render(request, "verifycode.html", {'donatore': donatore})
+    else:
+        return render(request, "verifycode.html", {'errore': "Tessera non valida!"})

@@ -9,4 +9,5 @@ urlpatterns = [
     path('password_reset/done/', views.requestOk, name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='pw_reset_form.html'), name='password_reset_confirm'),
     path('reset/done/', views.resetOk, name='password_reset_complete'),
+    path('qr/<str:verifycode>/', views.verifyqr, name='verifyqr'),
 ]

@@ -1,8 +1,10 @@
+import secrets
 from django.db import models
 
 
 class donatori(models.Model):
     tessera = models.AutoField(auto_created=True, primary_key=True)
+    qrverify = models.CharField(max_length=32, default='')
     dataiscrizione = models.DateField(null=True)
     grupposang = models.CharField(max_length=3)
     fenotipo = models.CharField(max_length=255)
@@ -17,3 +19,8 @@ class donatori(models.Model):
     tel = models.CharField(max_length=255)
     email = models.EmailField()
     fototessera = models.ImageField(upload_to='fototessere/', default='default.jpg')
+
+    def save(self, *args, **kwargs):
+        if not self.qrverify:
+            self.qrverify = secrets.token_hex(16)
+        super().save(*args, **kwargs)

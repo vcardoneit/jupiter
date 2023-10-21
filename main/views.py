@@ -1,4 +1,5 @@
 import os
+import qrcode
 from jupiter.settings import BASE_DIR
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
@@ -80,6 +81,18 @@ def tessera(request):
 
         fototessera = Image.open(donatore.fototessera).resize((264, 340))
         img.paste(fototessera, (702, 253))
+
+        url = request.scheme + "://" + request.META['HTTP_HOST'] + "/qr/" + donatore.qrverify
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=5,
+            border=0,
+        )
+        qr.add_data(url)
+        qr.make(fit=True)
+        qr_img = qr.make_image(fill_color="black", back_color="white")
+        img.paste(qr_img, (500, 440))
 
         image_buffer = BytesIO()
         img.save(image_buffer, format="png")

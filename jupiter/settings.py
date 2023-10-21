@@ -22,7 +22,7 @@ DEBUG = eval(os.getenv('DEBUG', 'False'))
 
 ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '').split(" ")
 
-CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '').split(" ")
+CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'http://127.0.0.1:8000').split(" ")
 
 SESSION_COOKIE_SECURE = eval(os.getenv('SESSION_COOKIE_SECURE', 'False'))
 
