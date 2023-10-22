@@ -1,4 +1,4 @@
-name: Build and push
+name: Build and push NGINX
 
 on: [workflow_dispatch]
 
