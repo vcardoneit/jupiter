@@ -24,8 +24,8 @@
         <div class="m-2 col p-4 rounded-2" style="background-color: #dfdfdf;line-height: 2">
             <h3 class="text-center">Ricerca dal {{ statsRs.dataInizio|date:"d/m/Y" }} al {{ statsRs.dataFine|date:"d/m/Y" }}</h3>
             <p class="text-left m-0">
-            <b>Totale Donatori:</b> {{ statsRs.totaleDonatori }}<br>
-            <b>Totale Donazioni:</b> {{ statsRs.totaleDonazioni }}<br>
+            <b>Nuovi donatori:</b> {{ statsRs.totaleDonatori }}<br>
+            <b>Donazioni effettuate:</b> {{ statsRs.totaleDonazioni }}<br>
             <b>Donazioni Sangue:</b> {{ statsRs.donazioniSangue }} - {{ statsRs.mlSangue }}ml<br>
             <b>Donazioni Plasma:</b> {{ statsRs.donazioniPlasma }} - {{ statsRs.mlPlasma }}ml<br>
             <b>Donazioni Piastrine:</b> {{ statsRs.donazioniPiastrine }} - {{ statsRs.mlPiastrine }}<br>

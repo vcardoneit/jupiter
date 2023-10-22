@@ -24,8 +24,12 @@
             <input type="email" class="form-control" name="email" id="email" value="{{ predonazione.email }}" required>
         </div>
         <div class="mb-3">
-            <label for="idoneo" class="form-label">Idoneo</label>
-            <input type="text" class="form-control" name="idoneo" id="idoneo" value="{{ predonazione.idoneo }}">
+            <label for="idoneo" class="form-label">Idoneità</label>
+            <select class="form-control" name="idoneo" id="idoneo" required>
+                <option value="Idoneo" {% if predonazione.idoneo == "Idoneo" %}selected{% endif %}>Idoneo</option>
+                <option value="Non idoneo" {% if predonazione.idoneo == "Non idoneo" %}selected{% endif %}>Non idoneo</option>
+                <option value="In attesa" {% if predonazione.idoneo == "In attesa" %}selected{% endif %}>In attesa</option>
+            </select>
         </div>
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">

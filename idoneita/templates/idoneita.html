@@ -53,8 +53,12 @@
                         <input type="email" class="form-control" name="email" id="email" required>
                     </div>
                     <div class="mb-3">
-                        <label for="idoneo" class="form-label">Idoneo</label>
-                        <input type="text" class="form-control" name="idoneo" id="idoneo">
+                        <label for="idoneo" class="form-label">Idoneità</label>
+                        <select class="form-control" name="idoneo" id="idoneo" required>
+                            <option value="Idoneo">Idoneo</option>
+                            <option value="Non idoneo">Non idoneo</option>
+                            <option value="In attesa">In attesa</option>
+                        </select>
                     </div>
 
                     <button type="submit" class="btn text-white" style="background-color: #137935">Aggiungi</button>
