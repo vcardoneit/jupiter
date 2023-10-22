@@ -4,7 +4,6 @@ import qrcode
 from jupiter.settings import BASE_DIR
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
-from django.core.paginator import Paginator
 from django.utils.crypto import get_random_string
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordResetForm
@@ -19,19 +18,8 @@ from io import BytesIO
 @login_required
 def donatori(request):
     if request.user.is_staff:
-        if 'rCognome' in request.POST and request.POST.get('rCognome')!='':
-            cognome = request.POST.get('rCognome')
-            lDonatori = mDonatori.objects.filter(cognome__iexact=cognome).order_by('-tessera')
-            paginator = Paginator(lDonatori, 50)
-            page_number = request.GET.get("p")
-            page_obj = paginator.get_page(page_number)
-            return render(request, "donatori.html", {'page_obj': page_obj})
-        else:
-            lDonatori = mDonatori.objects.all().order_by('-tessera')
-            paginator = Paginator(lDonatori, 50)
-            page_number = request.GET.get("p")
-            page_obj = paginator.get_page(page_number)
-            return render(request, "donatori.html", {'page_obj': page_obj})
+        lDonatori = mDonatori.objects.all()
+        return render(request, "donatori.html", {'donatori': lDonatori})
     else:
         return redirect("/")
 

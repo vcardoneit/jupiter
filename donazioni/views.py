@@ -1,6 +1,5 @@
 import csv
 from django.shortcuts import redirect, render
-from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -32,17 +31,11 @@ def donazioni(request):
             messages.success(request, "Scheda donazione eliminata con successo!")
             return redirect('donazioni')
         else:
-            lDonazioni = mDonazioni.objects.all().order_by('-id')
-            paginator = Paginator(lDonazioni, 50)
-            page_number = request.GET.get("p")
-            page_obj = paginator.get_page(page_number)
-            return render(request, "donazioni.html", {'page_obj': page_obj})
+            lDonazioni = mDonazioni.objects.all()
+            return render(request, "donazioni.html", {'donazioni': lDonazioni})
     else:
-        lDonazioni = mDonazioni.objects.filter(donatore__email=request.user.email).order_by('-id')
-        paginator = Paginator(lDonazioni, 50)
-        page_number = request.GET.get("p")
-        page_obj = paginator.get_page(page_number)
-        return render(request, "donazioni.html", {'page_obj': page_obj})
+        lDonazioni = mDonazioni.objects.filter(donatore__email=request.user.email)
+        return render(request, "donazioni.html", {'donazioni': lDonazioni})
 
 
 @login_required
@@ -86,11 +79,8 @@ def storico(request):
             return redirect('donazioni')
         else:
             numeroTessera = request.POST.get('visualDonazioni')
-            lDonazioni = mDonazioni.objects.all().filter(donatore_id=numeroTessera).order_by('-id')
-            paginator = Paginator(lDonazioni, 50)
-            page_number = request.GET.get("p")
-            page_obj = paginator.get_page(page_number)
-            return render(request, "storicoDonazioni.html", {'page_obj': page_obj, "tessera": numeroTessera})
+            lDonazioni = mDonazioni.objects.all().filter(donatore_id=numeroTessera)
+            return render(request, "storicoDonazioni.html", {'donazioni': lDonazioni, "tessera": numeroTessera})
     else:
         return redirect("/")
 

@@ -1,5 +1,4 @@
 from django.shortcuts import redirect, render
-from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import idoneita as lIdoneita
@@ -8,11 +7,8 @@ from .models import idoneita as lIdoneita
 @login_required
 def idoneita(request):
     if request.user.is_staff:
-        listapred = lIdoneita.objects.all().order_by('-dataprelievo')
-        paginator = Paginator(listapred, 50)
-        page_number = request.GET.get("p")
-        page_obj = paginator.get_page(page_number)
-        return render(request, "idoneita.html", {'page_obj': page_obj})
+        listapred = lIdoneita.objects.all()
+        return render(request, "idoneita.html", {'predonazioni': listapred})
     else:
         return redirect("/")
 

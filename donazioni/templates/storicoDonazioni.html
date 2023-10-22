@@ -1,56 +1,51 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% load static %}
 
 <div class="container p-3" style="background-color: rgb(219, 219, 219);">
     <h2 align="center">Storico Donazioni</h2>
     <h4 align="center">Tessera numero {{ tessera }}</h4>
-    <div class="table-responsive">
-        <table class="table table-bordered text-nowrap">
-            <thead>
-                <tr class="text-center">
-                    <th scope="col">ID Donazione</th>
-                    <th scope="col">Tessera Donatore</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Cognome</th>
-                    <th scope="col">Data</th>
-                    <th scope="col">Tipo</th>
-                    <th scope="col">Quantitativo (ml)</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for lDonatori in page_obj %}
-                <tr class="text-center">
-                    <td>{{ lDonatori.id }}</td>
-                    <td>{{ lDonatori.donatore_id }}</td>
-                    <td>{{ lDonatori.donatore.nome }}</td>
-                    <td>{{ lDonatori.donatore.cognome }}</td>
-                    <td>{{ lDonatori.data|date:"d/m/Y" }}</td>
-                    <td>{{ lDonatori.tipo }}</td>
-                    <td>{{ lDonatori.quantitativo }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    
-    <nav class="mt-3" aria-label="pagination">
-        <ul class="pagination justify-content-center shadow-none">
-        {% if page_obj.has_previous %}
-            <li class="page-item">
-                <a class="page-link shadow-none" href="?p={{ page_obj.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-            </li>
-        {% endif %}
-        
-        <li class="page-item"><a class="page-link shadow-none active">{{ page_obj.number }}</a></li>
-
-        {% if page_obj.has_next %}
-            <li class="page-item">
-                <a class="page-link shadow-none" href="?p={{ page_obj.next_page_number }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-            </li>
-        {% endif %}
-        </ul>
-    </nav>
+    <table class="table table-bordered text-nowrap" id="Donazioni">
+        <thead>
+            <tr>
+                <th scope="col" class="text-center">ID Donazione</th>
+                <th scope="col" class="text-center">Nome</th>
+                <th scope="col" class="text-center">Cognome</th>
+                <th scope="col" class="text-center">Tessera Donatore</th>
+                <th scope="col" class="text-center">Data</th>
+                <th scope="col" class="text-center">Tipo</th>
+                <th scope="col" class="text-center">Quantitativo (ml)</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for donazione in donazioni %}
+            <tr class="text-center">
+                <td>{{ donazione.id }}</td>
+                <td>{{ donazione.donatore.nome }}</td>
+                <td>{{ donazione.donatore.cognome }}</td>
+                <td>{{ donazione.donatore_id }}</td>
+                <td>{{ donazione.data|date:"d/m/Y" }}</td>
+                <td>{{ donazione.tipo }}</td>
+                <td>{{ donazione.quantitativo }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
+
+<script>
+    $(document).ready(function() {
+        var table = $('#Donazioni').DataTable({
+            responsive: true,
+            language: {
+                url: "{% static 'datatables_it-IT.json' %}",
+            },
+            order: [
+                [0, 'desc']
+            ],
+        });
+    });
+</script>
 
 {% endblock content %}
