@@ -2,13 +2,12 @@
 <p align="center">Jupiter è una web app per la gestione delle attività riguardanti la donazione del sangue utilizzata dalla Croce Rossa Italiana di Avola
 
 ## Features
-- **Gestione Donatori**
-- **Gestione Donazioni**
+- **Gestione Donatori, Donazioni e Predonazioni**
+- **Emissione tessera con verifica tramite QR**
 - **Statistiche**
 - **Invio appello a tutti i Donatori**
 - **Accesso Donatore**
-- **Esporta i dati in CSV**
-- **Molto altro..**
+- **Esportazione dati in CSV**
 
 ## Installation with Docker
 #### Docker compose
@@ -74,3 +73,9 @@ volumes:
 
 ## Problems / Questions
 <b>Email:</b> jupiter@vcardone.it
+
+## Screenshot
+<p align="center"><img src="https://i.imgur.com/qSCCRDQ.png"></p>
+<p align="center"><img src="https://i.imgur.com/DEfwXzI.png"></p>
+<p align="center"><img src="https://i.imgur.com/AfWo6JU.png"></p>
+<p align="center"><img src="https://i.imgur.com/gngm488.png"></p>
