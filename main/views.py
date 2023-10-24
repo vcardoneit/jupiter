@@ -30,59 +30,42 @@ def tessera(request):
         img = Image.open(os.path.join(BASE_DIR, 'main/static', 'template.png'))
         draw = ImageDraw.Draw(img)
 
-        text = donatore.nome + " " + donatore.cognome
         text_color = (0, 0, 0)
         font_size = 32
         font = ImageFont.truetype("./arial.ttf", font_size)
+
+        text = donatore.nome + " " + donatore.cognome
         text_position = (161, 175)
         draw.text(text_position, text, fill=text_color, font=font)
 
         text = str(donatore.datadinascita.strftime("%d/%m/%Y"))
-        text_color = (0, 0, 0)
-        font_size = 32
-        font = ImageFont.truetype("./arial.ttf", font_size)
         text_position = (311, 225)
         draw.text(text_position, text, fill=text_color, font=font)
 
         text = donatore.email
-        text_color = (0, 0, 0)
-        font_size = 32
-        font = ImageFont.truetype("./arial.ttf", font_size)
         text_position = (152, 275)
         draw.text(text_position, text, fill=text_color, font=font)
 
         text = donatore.grupposang
-        text_color = (0, 0, 0)
-        font_size = 32
-        font = ImageFont.truetype("./arial.ttf", font_size)
         text_position = (374, 325)
         draw.text(text_position, text, fill=text_color, font=font)
 
         text = donatore.fenotipo
-        text_color = (0, 0, 0)
-        font_size = 32
-        font = ImageFont.truetype("./arial.ttf", font_size)
         text_position = (205, 375)
         draw.text(text_position, text, fill=text_color, font=font)
 
         text = donatore.kell
-        text_color = (0, 0, 0)
-        font_size = 32
-        font = ImageFont.truetype("./arial.ttf", font_size)
         text_position = (117, 425)
         draw.text(text_position, text, fill=text_color, font=font)
 
         text = str(donatore.tessera)
-        text_color = (0, 0, 0)
-        font_size = 32
-        font = ImageFont.truetype("./arial.ttf", font_size)
         text_position = (176, 475)
         draw.text(text_position, text, fill=text_color, font=font)
 
         fototessera = Image.open(donatore.fototessera).resize((264, 340))
         img.paste(fototessera, (702, 253))
 
-        url = request.scheme + "://" + request.META['HTTP_HOST'] + "/qr/" + donatore.qrverify
+        url = "https://" + request.META['HTTP_HOST'] + "/qr/" + donatore.qrverify
         qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
