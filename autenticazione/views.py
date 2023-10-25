@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login as dlogin
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from donatori.models import donatori
+from donazioni.models import donazioni
 
 
 @login_required
@@ -49,6 +50,10 @@ def requestOk(request):
 def verifyqr(request, verifycode):
     if donatori.objects.filter(qrverify=verifycode).exists():
         donatore = donatori.objects.get(qrverify=verifycode)
-        return render(request, "verifycode.html", {'donatore': donatore})
+        if donazioni.objects.filter(donatore=donatore.tessera).exists():
+            ultimaDonazione = donazioni.objects.filter(donatore=donatore.tessera).latest('data')
+            return render(request, "verifycode.html", {'donatore': donatore, 'ultimaDonazione': ultimaDonazione})
+        else:
+            return render(request, "verifycode.html", {'donatore': donatore})
     else:
         return render(request, "verifycode.html", {'errore': "Tessera non valida!"})

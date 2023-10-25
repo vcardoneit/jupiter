@@ -1,21 +1,39 @@
-{% extends "base.html" %}
+{% load static %}
+<!-- Jupiter - Vincenzo Cardone (vcardone.it) - GNU General Public License v3.0 - https://github.com/vcardoneit/jupiter -->
+<!doctype html>
+<html lang="it">
 
-{% block content %}
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Croce Rossa Italiana</title>
+		<link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
+        <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+        <link rel="manifest" href="{% static 'manifest.webmanifest' %}" />
+	</head>
 
+	<body style="background-color: #e7e7e7" class="p-4">
 
-{% if errore %}
-<div class="row justify-content-center m-4"><div class="col-lg-3 alert alert-danger text-center" role="alert"><h1>{{ errore }}</h1><br><p>Croce Rossa Italiana - Comitato di Avola<br>Via Santa Lucia 86<br>96012 Avola (SR)<br>Email: avola@cri.it</p></div></div>
-{% endif %}
+        <div class="row justify-content-center">
+            <div class="col-lg-3 text-center rounded-4" role="alert" style="background-color: white;">
+                <img src="{% static 'logo_v_r.png' %}" class="img-thumbnail border-0 mb-4" style="max-width:70%">
 
-{% if donatore %}
-<div class="row justify-content-center m-4">
-<div class="col-lg-3 alert alert-success text-center" role="alert">
-    <h1>Tessera valida!</h1><br>
-    <p><b>Numero Tessera:</b> {{ donatore.tessera }}<br><b>Donatore:</b> {{ donatore.nome }} {{ donatore.cognome }}<br><b>Data di nascita:</b> {{ donatore.datadinascita|date:"d/m/Y" }}</p>
-    <br>
-    <p>Croce Rossa Italiana - Comitato di Avola<br>Via Santa Lucia 86<br>96012 Avola (SR)<br>Email: avola@cri.it</p>
-</div>
-</div>
-{% endif %}
+                {% if donatore %}
+                <h2>Tessera valida!</h2><br>
+                <p><b>Numero Tessera:</b> {{ donatore.tessera }}<br><b>Donatore:</b> {{ donatore.nome }} {{ donatore.cognome }}<br><b>Data di nascita:</b> {{ donatore.datadinascita|date:"d/m/Y" }}<br>{% if ultimaDonazione %}<b>Ultima donazione:</b> {{ ultimaDonazione.data }}{% else %}<br><b>!! Nessuna donazione effettuata !!</b>{% endif %}</p>
+                {% endif %}
 
-{% endblock %}
+                {% if errore %}
+                <h2>{{ errore }}</h2><br>
+                {% endif %}
+
+                <p>Via Santa Lucia 86<br>96012 Avola (SR)<br>Email: avola@cri.it</p>
+            </div>
+        </div>
+
+		<script src="{% static 'bootstrap.bundle.min.js' %}"></script>
+		<script src="{% static 'popper.min.js' %}"></script>
+		<script src="{% static 'bootstrap.min.js' %}"></script>
+	</body>
+
+</html>
