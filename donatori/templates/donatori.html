@@ -50,11 +50,11 @@
                         <input class="form-control" type="file" name="fototessera">
                       </div>
                     <div class="mb-3">
-                        <label for="dataiscrizione" class="form-label">Data Iscrizione</label>
+                        <label for="dataiscrizione" class="form-label">Data Iscrizione *</label>
                         <input type="date" class="form-control" name="dataiscrizione" id="dataiscrizione" required>
                     </div>
                     <div class="mb-3">
-                        <label for="grupposanguigno" class="form-label">Gruppo Sanguigno</label>
+                        <label for="grupposanguigno" class="form-label">Gruppo Sanguigno *</label>
                         <select class="form-control" name="grupposanguigno" id="grupposanguigno" required>
                             <option value="A+">A+</option>
                             <option value="A-">A-</option>
@@ -67,71 +67,39 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="fenotipo" class="form-label">Fenotipo</label>
-                        <select class="form-control" id="fenotipo" name="fenotipo" required>
-                            <option value="CCDee">CCDee</option>
-                            <option value="ccDEE">ccDEE</option>
-                            <option value="CcDee">CcDee</option>
-                            <option value="ccDEe">ccDEe</option>
-                            <option value="ccDee">ccDee</option>
-                            <option value="CCDEE">CCDEE</option>
-                            <option value="CCDEe">CCDEe</option>
-                            <option value="CcDEE">CcDEE</option>
-                            <option value="CcDEe">CcDEe</option>
-                            <option value="Ccddee">Ccddee</option>
-                            <option value="CCddee">CCddee</option>
-                            <option value="ccddEe">ccddEe</option>
-                            <option value="ccddEE">ccddEE</option>
-                            <option value="ccddee">ccddee</option>
-                            <option value="CcddEe">CcddEe</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="kell" class="form-label">Kell</label>
-                        <select class="form-control" id="kell" name="kell" required>
-                            <option value="K+k+">K+k+</option>
-                            <option value="K+k-">K+k-</option>
-                            <option value="K-k+">K-k+</option>
-                            <option value="K-k-">K-k-</option>
-                            <option value="Kp(a+b+)">Kp(a+b+)</option>
-                            <option value="Kp(a-b+)">Kp(a-b+)</option>
-                            <option value="Kk">Kk</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="nome" class="form-label">Nome</label>
+                        <label for="nome" class="form-label">Nome *</label>
                         <input type="text" class="form-control" name="nome" id="nome" required>
                     </div>
                     <div class="mb-3">
-                        <label for="cognome" class="form-label">Cognome</label>
+                        <label for="cognome" class="form-label">Cognome *</label>
                         <input type="text" class="form-control" name="cognome" id="cognome" required>
                     </div>
                     <div class="mb-3">
-                        <label for="datadinascita" class="form-label">Data di nascita</label>
+                        <label for="datadinascita" class="form-label">Data di nascita *</label>
                         <input type="date" class="form-control" name="datadinascita" id="datadinascita" required>
                     </div>
                     <div class="mb-3">
-                        <label for="luogodinascita" class="form-label">Luogo di nascita</label>
+                        <label for="luogodinascita" class="form-label">Luogo di nascita *</label>
                         <input type="text" class="form-control" name="luogodinascita" id="luogodinascita" required>
                     </div>
                     <div class="mb-3">
-                        <label for="codicefiscale" class="form-label">Codice Fiscale</label>
+                        <label for="codicefiscale" class="form-label">Codice Fiscale *</label>
                         <input type="text" class="form-control" name="codicefiscale" id="codicefiscale" maxlength="16" style="text-transform:uppercase" required>
                     </div>
                     <div class="mb-3">
-                        <label for="indirizzo" class="form-label">Indirizzo</label>
+                        <label for="indirizzo" class="form-label">Indirizzo *</label>
                         <input type="text" class="form-control" name="indirizzo" id="indirizzo" required>
                     </div>
                     <div class="mb-3">
-                        <label for="comune" class="form-label">Comune</label>
+                        <label for="comune" class="form-label">Comune *</label>
                         <input type="text" class="form-control" name="comune" id="comune" required>
                     </div>
                     <div class="mb-3">
-                        <label for="telefono" class="form-label">Telefono</label>
+                        <label for="telefono" class="form-label">Telefono *</label>
                         <input type="tel" class="form-control" name="telefono" id="telefono" maxlength="10" required>
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
+                        <label for="email" class="form-label">Email *</label>
                         <input type="email" class="form-control" name="email" id="email" required>
                     </div>
 
@@ -152,8 +120,6 @@
                 <th scope="col" class="text-center">Cognome</th>
                 <th scope="col" class="text-center">Data Iscrizione</th>
                 <th scope="col" class="text-center">Gruppo Sanguigno</th>
-                <th scope="col" class="text-center">Fenotipo</th>
-                <th scope="col" class="text-center">Kell</th>
                 <th scope="col" class="text-center">Data di nascita</th>
                 <th scope="col" class="text-center">Luogo di nascita</th>
                 <th scope="col" class="text-center">Codice Fiscale</th>
@@ -171,8 +137,6 @@
                 <td>{{ donatore.cognome }}</td>
                 <td>{{ donatore.dataiscrizione|date:"d/m/Y" }}</td>
                 <td>{{ donatore.grupposang }}</td>
-                <td>{{ donatore.fenotipo }}</td>
-                <td>{{ donatore.kell }}</td>
                 <td>{{ donatore.datadinascita|date:"d/m/Y" }}</td>
                 <td>{{ donatore.luogodinascita }}</td>
                 <td>{{ donatore.codicefiscale }}</td>
@@ -195,7 +159,7 @@
                 url: "{% static 'datatables_it-IT.json' %}",
             },
             order: [
-                [0, 'desc']
+                [3, 'desc']
             ],
         });
     });

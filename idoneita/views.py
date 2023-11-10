@@ -46,6 +46,17 @@ def modifica(request):
 
 
 @login_required
+def elimina(request):
+    if request.user.is_staff:
+        idCanc = request.POST.get('idCanc')
+        lIdoneita.objects.filter(id=idCanc).delete()
+        messages.success(request, "Predonazione eliminata con successo!")
+        return redirect('idoneita')
+    else:
+        return redirect("/")
+
+
+@login_required
 def salva(request):
     if request.user.is_staff:
         predonazioneMod = request.POST.get('predonazioneMod')

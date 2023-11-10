@@ -35,31 +35,23 @@ def tessera(request):
         font = ImageFont.truetype("./arial.ttf", font_size)
 
         text = donatore.nome + " " + donatore.cognome
-        text_position = (161, 175)
+        text_position = (161, 225)
         draw.text(text_position, text, fill=text_color, font=font)
 
         text = str(donatore.datadinascita.strftime("%d/%m/%Y"))
-        text_position = (311, 225)
+        text_position = (311, 275)
         draw.text(text_position, text, fill=text_color, font=font)
 
         text = donatore.email
-        text_position = (152, 275)
+        text_position = (152, 325)
         draw.text(text_position, text, fill=text_color, font=font)
 
         text = donatore.grupposang
-        text_position = (374, 325)
-        draw.text(text_position, text, fill=text_color, font=font)
-
-        text = donatore.fenotipo
-        text_position = (205, 375)
-        draw.text(text_position, text, fill=text_color, font=font)
-
-        text = donatore.kell
-        text_position = (117, 425)
+        text_position = (374, 375)
         draw.text(text_position, text, fill=text_color, font=font)
 
         text = str(donatore.tessera)
-        text_position = (176, 475)
+        text_position = (176, 425)
         draw.text(text_position, text, fill=text_color, font=font)
 
         fototessera = Image.open(donatore.fototessera).resize((264, 340))

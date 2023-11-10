@@ -37,5 +37,12 @@
             <button type="button" class="btn text-white btn-lg" style="background-color: #cc0000" onclick="location.href = '/idoneita';">Annulla</button>
         </div>
     </form>
+    <form method="post" action="{% url 'elimina_predonazione' %}">
+        {% csrf_token %}
+        <div class="pt-5 d-grid gap-2 d-md-flex justify-content-md-end">
+            <input type="hidden" name="idCanc" id="idCanc" value="{{ predonazione.id }}">
+            <button type="submit" class="btn text-white" style="background-color: #cc0000">Elimina Predonazione</button>
+        </div>
+    </form>
 </div> 
 {% endblock content %}

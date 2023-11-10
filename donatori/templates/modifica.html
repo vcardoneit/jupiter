@@ -12,11 +12,11 @@
             <input class="form-control" type="file" name="fototessera">
           </div>
         <div class="mb-3">
-            <label for="dataiscrizione" class="form-label">Data Iscrizione</label>
+            <label for="dataiscrizione" class="form-label">Data Iscrizione *</label>
             <input type="date" class="form-control" name="dataiscrizione" value="{{ donatore.dataiscrizione|date:'Y-m-d' }}" id="dataiscrizione" required>
         </div>
         <div class="mb-3">
-            <label for="grupposanguigno" class="form-label">Gruppo Sanguigno</label>
+            <label for="grupposanguigno" class="form-label">Gruppo Sanguigno *</label>
             <select class="form-control" name="grupposanguigno" id="grupposanguigno" required>
                 <option value="A+" {% if donatore.grupposang == "A+" %}selected{% endif %}>A+</option>
                 <option value="A-" {% if donatore.grupposang == "A-" %}selected{% endif %}>A-</option>
@@ -29,71 +29,39 @@
             </select>
         </div>
         <div class="mb-3">
-            <label for="fenotipo" class="form-label">Fenotipo</label>
-            <select class="form-control" id="fenotipo" name="fenotipo" required>
-                <option value="CCDee" {% if donatore.fenotipo == "CCDee" %}selected{% endif %}>CCDee</option>
-                <option value="ccDEE" {% if donatore.fenotipo == "ccDEE" %}selected{% endif %}>ccDEE</option>
-                <option value="CcDee" {% if donatore.fenotipo == "CcDee" %}selected{% endif %}>CcDee</option>
-                <option value="ccDEe" {% if donatore.fenotipo == "ccDEe" %}selected{% endif %}>ccDEe</option>
-                <option value="ccDee" {% if donatore.fenotipo == "ccDee" %}selected{% endif %}>ccDee</option>
-                <option value="CCDEE" {% if donatore.fenotipo == "CCDEE" %}selected{% endif %}>CCDEE</option>
-                <option value="CCDEe" {% if donatore.fenotipo == "CCDEe" %}selected{% endif %}>CCDEe</option>
-                <option value="CcDEE" {% if donatore.fenotipo == "CcDEE" %}selected{% endif %}>CcDEE</option>
-                <option value="CcDEe" {% if donatore.fenotipo == "CcDEe" %}selected{% endif %}>CcDEe</option>
-                <option value="Ccddee" {% if donatore.fenotipo == "Ccddee" %}selected{% endif %}>Ccddee</option>
-                <option value="CCddee" {% if donatore.fenotipo == "CCddee" %}selected{% endif %}>CCddee</option>
-                <option value="ccddEe" {% if donatore.fenotipo == "ccddEe" %}selected{% endif %}>ccddEe</option>
-                <option value="ccddEE" {% if donatore.fenotipo == "ccddEE" %}selected{% endif %}>ccddEE</option>
-                <option value="ccddee" {% if donatore.fenotipo == "ccddee" %}selected{% endif %}>ccddee</option>
-                <option value="CcddEe" {% if donatore.fenotipo == "CcddEe" %}selected{% endif %}>CcddEe</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="kell" class="form-label">Kell</label>
-            <select class="form-control" id="kell" name="kell" required>
-                <option value="K+k+" {% if donatore.kell == "K+k+" %}selected{% endif %}>K+k+</option>
-                <option value="K+k-" {% if donatore.kell == "K+k-" %}selected{% endif %}>K+k-</option>
-                <option value="K-k+" {% if donatore.kell == "K-k+" %}selected{% endif %}>K-k+</option>
-                <option value="K-k-" {% if donatore.kell == "K-k-" %}selected{% endif %}>K-k-</option>
-                <option value="Kp(a+b+)" {% if donatore.kell == "Kp(a+b+)" %}selected{% endif %}>Kp(a+b+)</option>
-                <option value="Kp(a-b+)" {% if donatore.kell == "Kp(a-b+)" %}selected{% endif %}>Kp(a-b+)</option>
-                <option value="Kk" {% if donatore.kell == "Kk" %}selected{% endif %}>Kk</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="nome" class="form-label">Nome</label>
+            <label for="nome" class="form-label">Nome *</label>
             <input type="text" class="form-control" name="nome" value="{{ donatore.nome }}" id="nome" required>
         </div>
         <div class="mb-3">
-            <label for="cognome" class="form-label">Cognome</label>
+            <label for="cognome" class="form-label">Cognome *</label>
             <input type="text" class="form-control" name="cognome" value="{{ donatore.cognome }}" id="cognome" required>
         </div>
         <div class="mb-3">
-            <label for="datadinascita" class="form-label">Data di nascita</label>
+            <label for="datadinascita" class="form-label">Data di nascita *</label>
             <input type="date" class="form-control" name="datadinascita" value="{{ donatore.datadinascita|date:'Y-m-d' }}" id="datadinascita" required>
         </div>
         <div class="mb-3">
-            <label for="luogodinascita" class="form-label">Luogo di nascita</label>
+            <label for="luogodinascita" class="form-label">Luogo di nascita *</label>
             <input type="text" class="form-control" name="luogodinascita" value="{{ donatore.luogodinascita }}" id="luogodinascita" required>
         </div>
         <div class="mb-3">
-            <label for="codicefiscale" class="form-label">Codice Fiscale</label>
+            <label for="codicefiscale" class="form-label">Codice Fiscale *</label>
             <input type="text" class="form-control" name="codicefiscale" value="{{ donatore.codicefiscale }}" id="codicefiscale" maxlength="16" style="text-transform:uppercase" required>
         </div>
         <div class="mb-3">
-            <label for="indirizzo" class="form-label">Indirizzo</label>
+            <label for="indirizzo" class="form-label">Indirizzo *</label>
             <input type="text" class="form-control" name="indirizzo" value="{{ donatore.indirizzo }}" id="indirizzo" required>
         </div>
         <div class="mb-3">
-            <label for="comune" class="form-label">Comune</label>
+            <label for="comune" class="form-label">Comune *</label>
             <input type="text" class="form-control" name="comune" value="{{ donatore.comune }}" id="comune" required>
         </div>
         <div class="mb-3">
-            <label for="telefono" class="form-label">Telefono</label>
+            <label for="telefono" class="form-label">Telefono *</label>
             <input type="tel" class="form-control" name="telefono" value="{{ donatore.tel }}" id="telefono" maxlength="10" required>
         </div>
         <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
+            <label for="email" class="form-label">Email *</label>
             <input type="email" class="form-control" name="email" value="{{ donatore.email }}" id="email" required>
         </div>
 

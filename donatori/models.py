@@ -7,8 +7,6 @@ class donatori(models.Model):
     qrverify = models.CharField(max_length=32, default='')
     dataiscrizione = models.DateField(null=True)
     grupposang = models.CharField(max_length=3)
-    fenotipo = models.CharField(max_length=255)
-    kell = models.CharField(max_length=255)
     nome = models.CharField(max_length=255)
     cognome = models.CharField(max_length=255)
     datadinascita = models.DateField(null=True)
