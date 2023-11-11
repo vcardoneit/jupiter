@@ -6,24 +6,34 @@
 {% for message in messages %}
 <div class="row justify-content-center pt-2 pe-3 ps-3">
     <div class="col-md-3">
-        <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+        <div class="alert alert-{{ message.tags }} mb-0" role="alert">{{ message }}</div>
     </div>
 </div>
 {% endfor %}
 {% endif %}
 
-<div class="container p-3 mt-2 " style="background-color: rgb(219, 219, 219);">
-    <h2 align="center">Invia Appello</h2>
+<div class="container p-3 mt-2 " style="background-color: rgba(219, 219, 219, 0.459);">
+    <h2 align="center">Invia messaggio</h2>
 
     <form method="post" action="{% url 'avvisi' %}">
         {% csrf_token %}
+        <div class="d-flex justify-content-center mt-3">
+            <div class="mb-3 form-check form-check-inline">
+                <input class="form-check-input shadow-none" type="radio" name="tipoMsg" value="convocazione" id="tipoMsg1" required>
+                <label class="form-check-label" for="tipoMsg1">Convocazione</label>
+            </div>
+            <div class="mb-3 form-check form-check-inline">
+                <input class="form-check-input shadow-none" type="radio" name="tipoMsg" value="pubblicita" id="tipoMsg2" required>
+                <label class="form-check-label" for="tipoMsg2">Pubblicità</label>
+            </div>
+        </div>
         <div class="mb-3">
             <label for="oggetto" class="form-label">Oggetto email</label>
-            <input type="text" class="form-control" name="oggetto" id="oggetto">
+            <input type="text" class="form-control shadow-none" name="oggetto" id="oggetto" required>
           </div>
         <div class="mb-3">
             <label for="messaggio" class="form-label">Messaggio</label>
-            <textarea class="form-control" name="messaggio" id="messaggio" rows="3"></textarea>
+            <textarea class="form-control shadow-none" name="messaggio" id="messaggio" rows="8" required></textarea>
         </div>    
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">

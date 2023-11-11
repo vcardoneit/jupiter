@@ -15,7 +15,6 @@ def salva(request):
         lDonazioni.donatore = mDonatori.objects.get(pk=request.POST.get('tessera'))
         lDonazioni.data = request.POST.get('data')
         lDonazioni.tipo = request.POST.get('tipodonazione')
-        lDonazioni.quantitativo = request.POST.get('quantitativo')
         lDonazioni.save()
         messages.success(request, "Scheda donazione salvata con successo!")
         return redirect('donazioni')
@@ -63,7 +62,6 @@ def aggiungi(request):
             lDonazioni = mDonazioni.objects.create(donatore_id=request.POST.get('tessera'))
             lDonazioni.data = request.POST.get('datadonazione')
             lDonazioni.tipo = request.POST.get('tipodonazione')
-            lDonazioni.quantitativo = request.POST.get('quantitativo')
             lDonazioni.save()
 
             return redirect("donazioni")
@@ -91,9 +89,9 @@ def esporta(request):
         response = HttpResponse(content_type="text/csv", headers={"Content-Disposition": 'attachment; filename="donazioni.csv"'})
         lDonazioni = mDonazioni.objects.all()
         writer = csv.writer(response)
-        writer.writerow(["id", "donatore", "data", "tipo", "quantitativo"])
+        writer.writerow(["id", "donatore", "data", "tipo"])
         for x in lDonazioni:
-            writer.writerow([x.id, x.donatore_id, x.data, x.tipo, x.quantitativo])
+            writer.writerow([x.id, x.donatore_id, x.data, x.tipo])
 
         return response
     else:

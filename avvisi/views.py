@@ -13,8 +13,13 @@ def avvisi(request):
 
             oggetto = request.POST.get('oggetto')
             messaggio = request.POST.get('messaggio')
-            fromEmail = os.getenv("EMAIL_HOST_USER")
-            emailDonatori = donatori.objects.values_list("email", flat=True)
+            fromEmail = os.getenv("DEFAULT_FROM_EMAIL")
+
+            if request.POST.get('tipoMsg') == "convocazione":
+                emailDonatori = donatori.objects.values_list("email", flat=True).filter(privacy_b=True)
+
+            if request.POST.get('tipoMsg') == "pubblicita":
+                emailDonatori = donatori.objects.values_list("email", flat=True).filter(privacy_c=True)
 
             messaggi = [(oggetto, messaggio, fromEmail, [dest]) for dest in emailDonatori]
 

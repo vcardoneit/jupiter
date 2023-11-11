@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container p-3" style="background-color: rgb(219, 219, 219);">
+<div class="container p-3" style="background-color: rgba(219, 219, 219, 0.459);">
     <h2 align="center">Modifica Donazione</h2>
     <h4 align="center">ID Numero {{ donazione.id }}</h4>
     <form method="post" action="{% url 'salva_donazione' %}">
@@ -22,10 +22,6 @@
         <div class="mb-3">
             <label for="data" class="form-label">Data</label>
             <input type="date" class="form-control" name="data" value="{{ donazione.data|date:'Y-m-d' }}" id="data" required>
-        </div>
-        <div class="mb-3">
-            <label for="quantitativo" class="form-label">Quantitativo (ml)</label>
-            <input type="text" class="form-control" name="quantitativo" value="{{ donazione.quantitativo }}" id="quantitativo" required>
         </div>
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">

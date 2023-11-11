@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}  
-<div class="container p-3" style="background-color: rgb(219, 219, 219);">
+<div class="container p-3" style="background-color: rgba(219, 219, 219, 0.459);">
     <h2 align="center">Modifica Profilo Donatore</h2>
     <h4 align="center">Tessera numero {{ donatore.tessera }}</h4>
     <form method="post" action="{% url 'salva_donatore' %}" enctype="multipart/form-data">
@@ -9,15 +9,15 @@
         <input type="hidden" id="tesseraMod" name="tesseraMod" value="{{ donatore.tessera }}">
         <div class="mb-3">
             <label for="fototessera" class="form-label">Fototessera</label>
-            <input class="form-control" type="file" name="fototessera">
+            <input class="form-control shadow-none" type="file" name="fototessera">
           </div>
         <div class="mb-3">
             <label for="dataiscrizione" class="form-label">Data Iscrizione *</label>
-            <input type="date" class="form-control" name="dataiscrizione" value="{{ donatore.dataiscrizione|date:'Y-m-d' }}" id="dataiscrizione" required>
+            <input type="date" class="form-control shadow-none" name="dataiscrizione" value="{{ donatore.dataiscrizione|date:'Y-m-d' }}" id="dataiscrizione" required>
         </div>
         <div class="mb-3">
             <label for="grupposanguigno" class="form-label">Gruppo Sanguigno *</label>
-            <select class="form-control" name="grupposanguigno" id="grupposanguigno" required>
+            <select class="form-control shadow-none" name="grupposanguigno" id="grupposanguigno" required>
                 <option value="A+" {% if donatore.grupposang == "A+" %}selected{% endif %}>A+</option>
                 <option value="A-" {% if donatore.grupposang == "A-" %}selected{% endif %}>A-</option>
                 <option value="B+" {% if donatore.grupposang == "B+" %}selected{% endif %}>B+</option>
@@ -30,39 +30,51 @@
         </div>
         <div class="mb-3">
             <label for="nome" class="form-label">Nome *</label>
-            <input type="text" class="form-control" name="nome" value="{{ donatore.nome }}" id="nome" required>
+            <input type="text" class="form-control shadow-none" name="nome" value="{{ donatore.nome }}" id="nome" required>
         </div>
         <div class="mb-3">
             <label for="cognome" class="form-label">Cognome *</label>
-            <input type="text" class="form-control" name="cognome" value="{{ donatore.cognome }}" id="cognome" required>
+            <input type="text" class="form-control shadow-none" name="cognome" value="{{ donatore.cognome }}" id="cognome" required>
         </div>
         <div class="mb-3">
             <label for="datadinascita" class="form-label">Data di nascita *</label>
-            <input type="date" class="form-control" name="datadinascita" value="{{ donatore.datadinascita|date:'Y-m-d' }}" id="datadinascita" required>
+            <input type="date" class="form-control shadow-none" name="datadinascita" value="{{ donatore.datadinascita|date:'Y-m-d' }}" id="datadinascita" required>
         </div>
         <div class="mb-3">
             <label for="luogodinascita" class="form-label">Luogo di nascita *</label>
-            <input type="text" class="form-control" name="luogodinascita" value="{{ donatore.luogodinascita }}" id="luogodinascita" required>
+            <input type="text" class="form-control shadow-none" name="luogodinascita" value="{{ donatore.luogodinascita }}" id="luogodinascita" required>
         </div>
         <div class="mb-3">
             <label for="codicefiscale" class="form-label">Codice Fiscale *</label>
-            <input type="text" class="form-control" name="codicefiscale" value="{{ donatore.codicefiscale }}" id="codicefiscale" maxlength="16" style="text-transform:uppercase" required>
+            <input type="text" class="form-control shadow-none" name="codicefiscale" value="{{ donatore.codicefiscale }}" id="codicefiscale" maxlength="16" style="text-transform:uppercase" required>
         </div>
         <div class="mb-3">
             <label for="indirizzo" class="form-label">Indirizzo *</label>
-            <input type="text" class="form-control" name="indirizzo" value="{{ donatore.indirizzo }}" id="indirizzo" required>
+            <input type="text" class="form-control shadow-none" name="indirizzo" value="{{ donatore.indirizzo }}" id="indirizzo" required>
         </div>
         <div class="mb-3">
             <label for="comune" class="form-label">Comune *</label>
-            <input type="text" class="form-control" name="comune" value="{{ donatore.comune }}" id="comune" required>
+            <input type="text" class="form-control shadow-none" name="comune" value="{{ donatore.comune }}" id="comune" required>
         </div>
         <div class="mb-3">
             <label for="telefono" class="form-label">Telefono *</label>
-            <input type="tel" class="form-control" name="telefono" value="{{ donatore.tel }}" id="telefono" maxlength="10" required>
+            <input type="tel" class="form-control shadow-none" name="telefono" value="{{ donatore.tel }}" id="telefono" maxlength="10" required>
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email *</label>
-            <input type="email" class="form-control" name="email" value="{{ donatore.email }}" id="email" required>
+            <input type="email" class="form-control shadow-none" name="email" value="{{ donatore.email }}" id="email" required>
+        </div>
+        <div class="mb-3 form-check">
+            <input class="form-check-input shadow-none" type="checkbox" value="True" name="privacy_a" id="privacy_a" {% if donatore.privacy_a == True %}checked{% endif %} required>
+            <label class="form-check-label" for="privacy_a">Consenso privacy obbligatorio *</label>
+        </div>
+        <div class="mb-3 form-check">
+            <input class="form-check-input shadow-none" type="checkbox" value="True" name="privacy_b" id="privacy_b" {% if donatore.privacy_b == True %}checked{% endif %}>
+            <label class="form-check-label" for="privacy_b">Consenso privacy convocazione</label>
+        </div>
+        <div class="mb-3 form-check">
+            <input class="form-check-input shadow-none" type="checkbox" value="True" name="privacy_c" id="privacy_c" {% if donatore.privacy_c == True %}checked{% endif %}>
+            <label class="form-check-label" for="privacy_c">Consenso privacy pubblicità</label>
         </div>
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">

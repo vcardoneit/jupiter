@@ -61,10 +61,6 @@
                             <option value="Piastrine">Piastrine</option>
                         </select>
                     </div>
-                    <div class="mb-3">
-                        <label for="quantitativo" class="form-label">Quantitativo (ml)</label>
-                        <input type="text" class="form-control" name="quantitativo" id="quantitativo" required>
-                    </div>
 
                     <button type="submit" class="btn text-white" style="background-color: #137935">Aggiungi</button>
                     <button type="button" class="btn text-white" data-bs-dismiss="modal" style="background-color: #cc0000">Annulla</button>
@@ -80,13 +76,12 @@
             <tr>
                 {% if request.user.is_staff %}
                 <th scope="col" class="text-center">ID Donazione</th>
+                <th scope="col" class="text-center">Tessera Donatore</th>
                 <th scope="col" class="text-center">Nome</th>
                 <th scope="col" class="text-center">Cognome</th>
-                <th scope="col" class="text-center">Tessera Donatore</th>
                 {% endif %}
                 <th scope="col" class="text-center">Data</th>
                 <th scope="col" class="text-center">Tipo</th>
-                <th scope="col" class="text-center">Quantitativo (ml)</th>
             </tr>
         </thead>
         <tbody>
@@ -94,13 +89,12 @@
             <tr class="text-center">
                 {% if request.user.is_staff %}
                 <td>{{ donazione.id }}</td>
+                <td>{{ donazione.donatore_id }}</td>
                 <td>{{ donazione.donatore.nome }}</td>
                 <td>{{ donazione.donatore.cognome }}</td>
-                <td>{{ donazione.donatore_id }}</td>
                 {% endif %}
                 <td>{{ donazione.data|date:"d/m/Y" }}</td>
                 <td>{{ donazione.tipo }}</td>
-                <td>{{ donazione.quantitativo }}</td>
             </tr>
         {% endfor %}
         </tbody>
@@ -111,6 +105,24 @@
 </div>
 
 <script>
+    jQuery.extend(jQuery.fn.dataTableExt.oSort, {
+        "date-euro-pre": function (a) {
+            var dateArray = a.split('/');
+            return Date.parse(dateArray[2] + '/' + dateArray[1] + '/' + dateArray[0]) || 0;
+        },
+        
+        "date-euro-asc": function (a, b) {
+            return a - b;
+        },
+        
+        "date-euro-desc": function (a, b) {
+            return b - a;
+        }
+    });
+</script>
+
+{% if request.user.is_staff %}
+<script>
     $(document).ready(function() {
         var table = $('#Donazioni').DataTable({
             responsive: true,
@@ -120,8 +132,29 @@
             order: [
                 [4, 'desc']
             ],
+            columnDefs: [
+                { type: 'date-euro', targets: 4 }
+            ]
         });
     });
 </script>
+{% elif not request.user.is_staff %}
+<script>
+    $(document).ready(function() {
+        var table = $('#Donazioni').DataTable({
+            responsive: true,
+            language: {
+                url: "{% static 'datatables_it-IT.json' %}",
+            },
+            order: [
+                [1, 'desc']
+            ],
+            columnDefs: [
+                { type: 'date-euro', targets: 1 }
+            ]
+        });
+    });
+</script>
+{% endif %}
 
 {% endblock content %}

@@ -16,23 +16,8 @@ def statistiche(request):
         stats['donazioniPlasma'] = donazioni.objects.filter(tipo="Plasma").count()
         stats['donazioniPiastrine'] = donazioni.objects.filter(tipo="Piastrine").count()
 
-        quantitativo = donazioni.objects.values_list('quantitativo', flat=True).filter(tipo="Sangue")
-        mlSangue = 0
-        for x in quantitativo:
-            mlSangue += int(x)
-        stats['mlSangue'] = mlSangue
-
-        quantitativo = donazioni.objects.values_list('quantitativo', flat=True).filter(tipo="Plasma")
-        mlPlasma = 0
-        for x in quantitativo:
-            mlPlasma += int(x)
-        stats['mlPlasma'] = mlPlasma
-
-        quantitativo = donazioni.objects.values_list('quantitativo', flat=True).filter(tipo="Piastrine")
-        mlPiastrine = 0
-        for x in quantitativo:
-            mlPiastrine += int(x)
-        stats['mlPiastrine'] = mlPiastrine
+        stats['mlSangue'] = donazioni.objects.filter(tipo="Sangue").count() * 450
+        stats['mlPlasma'] = donazioni.objects.filter(tipo="Plasma").count() * 450
 
         return render(request, "statistiche.html", {'stats': stats})
     else:
@@ -55,23 +40,8 @@ def ricerca(request):
         statsRs['donazioniPlasma'] = donazioni.objects.filter(Q(data__gte=dataInizio) & Q(data__lte=dataFine) & Q(tipo="Plasma")).count()
         statsRs['donazioniPiastrine'] = donazioni.objects.filter(Q(data__gte=dataInizio) & Q(data__lte=dataFine) & Q(tipo="Piastrine")).count()
 
-        quantitativo = donazioni.objects.values_list('quantitativo', flat=True).filter(Q(data__gte=dataInizio) & Q(data__lte=dataFine) & Q(tipo="Sangue"))
-        mlSangue = 0
-        for x in quantitativo:
-            mlSangue += int(x)
-        statsRs['mlSangue'] = mlSangue
-
-        quantitativo = donazioni.objects.values_list('quantitativo', flat=True).filter(Q(data__gte=dataInizio) & Q(data__lte=dataFine) & Q(tipo="Plasma"))
-        mlPlasma = 0
-        for x in quantitativo:
-            mlPlasma += int(x)
-        statsRs['mlPlasma'] = mlPlasma
-
-        quantitativo = donazioni.objects.values_list('quantitativo', flat=True).filter(Q(data__gte=dataInizio) & Q(data__lte=dataFine) & Q(tipo="Piastrine"))
-        mlPiastrine = 0
-        for x in quantitativo:
-            mlPiastrine += int(x)
-        statsRs['mlPiastrine'] = mlPiastrine
+        statsRs['mlSangue'] = donazioni.objects.filter(Q(data__gte=dataInizio) & Q(data__lte=dataFine) & Q(tipo="Sangue")).count() * 450
+        statsRs['mlPlasma'] = donazioni.objects.filter(Q(data__gte=dataInizio) & Q(data__lte=dataFine) & Q(tipo="Plasma")).count() * 450
 
         return render(request, "statistiche.html", {'statsRs': statsRs})
     else:

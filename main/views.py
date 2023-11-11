@@ -34,7 +34,7 @@ def tessera(request):
         font_size = 32
         font = ImageFont.truetype("./arial.ttf", font_size)
 
-        text = donatore.nome + " " + donatore.cognome
+        text = donatore.nome.strip() + " " + donatore.cognome.strip()
         text_position = (161, 225)
         draw.text(text_position, text, fill=text_color, font=font)
 
@@ -72,7 +72,7 @@ def tessera(request):
         image_buffer = BytesIO()
         img.save(image_buffer, format="png")
 
-        nt = "Tessera " + donatore.nome + " " + donatore.cognome + ".png"
+        nt = "Tessera " + donatore.nome.strip() + " " + donatore.cognome.strip() + ".png"
 
         response = HttpResponse(image_buffer.getvalue(), content_type="image/png", headers={"Content-Disposition": f'attachment; filename={nt}'})
 

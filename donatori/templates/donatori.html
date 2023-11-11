@@ -47,15 +47,15 @@
                     {% csrf_token %}
                     <div class="mb-3">
                         <label for="fototessera" class="form-label">Fototessera</label>
-                        <input class="form-control" type="file" name="fototessera">
+                        <input class="form-control shadow-none" type="file" name="fototessera">
                       </div>
                     <div class="mb-3">
                         <label for="dataiscrizione" class="form-label">Data Iscrizione *</label>
-                        <input type="date" class="form-control" name="dataiscrizione" id="dataiscrizione" required>
+                        <input type="date" class="form-control shadow-none" name="dataiscrizione" id="dataiscrizione" required>
                     </div>
                     <div class="mb-3">
                         <label for="grupposanguigno" class="form-label">Gruppo Sanguigno *</label>
-                        <select class="form-control" name="grupposanguigno" id="grupposanguigno" required>
+                        <select class="form-control shadow-none" name="grupposanguigno" id="grupposanguigno" required>
                             <option value="A+">A+</option>
                             <option value="A-">A-</option>
                             <option value="B+">B+</option>
@@ -68,39 +68,51 @@
                     </div>
                     <div class="mb-3">
                         <label for="nome" class="form-label">Nome *</label>
-                        <input type="text" class="form-control" name="nome" id="nome" required>
+                        <input type="text" class="form-control shadow-none" name="nome" id="nome" required>
                     </div>
                     <div class="mb-3">
                         <label for="cognome" class="form-label">Cognome *</label>
-                        <input type="text" class="form-control" name="cognome" id="cognome" required>
+                        <input type="text" class="form-control shadow-none" name="cognome" id="cognome" required>
                     </div>
                     <div class="mb-3">
                         <label for="datadinascita" class="form-label">Data di nascita *</label>
-                        <input type="date" class="form-control" name="datadinascita" id="datadinascita" required>
+                        <input type="date" class="form-control shadow-none" name="datadinascita" id="datadinascita" required>
                     </div>
                     <div class="mb-3">
                         <label for="luogodinascita" class="form-label">Luogo di nascita *</label>
-                        <input type="text" class="form-control" name="luogodinascita" id="luogodinascita" required>
+                        <input type="text" class="form-control shadow-none" name="luogodinascita" id="luogodinascita" required>
                     </div>
                     <div class="mb-3">
                         <label for="codicefiscale" class="form-label">Codice Fiscale *</label>
-                        <input type="text" class="form-control" name="codicefiscale" id="codicefiscale" maxlength="16" style="text-transform:uppercase" required>
+                        <input type="text" class="form-control shadow-none" name="codicefiscale" id="codicefiscale" maxlength="16" style="text-transform:uppercase" required>
                     </div>
                     <div class="mb-3">
                         <label for="indirizzo" class="form-label">Indirizzo *</label>
-                        <input type="text" class="form-control" name="indirizzo" id="indirizzo" required>
+                        <input type="text" class="form-control shadow-none" name="indirizzo" id="indirizzo" required>
                     </div>
                     <div class="mb-3">
                         <label for="comune" class="form-label">Comune *</label>
-                        <input type="text" class="form-control" name="comune" id="comune" required>
+                        <input type="text" class="form-control shadow-none" name="comune" id="comune" required>
                     </div>
                     <div class="mb-3">
                         <label for="telefono" class="form-label">Telefono *</label>
-                        <input type="tel" class="form-control" name="telefono" id="telefono" maxlength="10" required>
+                        <input type="tel" class="form-control shadow-none" name="telefono" id="telefono" maxlength="10" required>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email *</label>
-                        <input type="email" class="form-control" name="email" id="email" required>
+                        <input type="email" class="form-control shadow-none" name="email" id="email" required>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input class="form-check-input shadow-none" type="checkbox" value="True" name="privacy_a" id="privacy_a" required>
+                        <label class="form-check-label" for="privacy_a">Consenso privacy obbligatorio *</label>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input class="form-check-input shadow-none" type="checkbox" value="True" name="privacy_b" id="privacy_b">
+                        <label class="form-check-label" for="privacy_b">Consenso privacy convocazione</label>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input class="form-check-input shadow-none" type="checkbox" value="True" name="privacy_c" id="privacy_c">
+                        <label class="form-check-label" for="privacy_c">Consenso privacy pubblicità</label>
                     </div>
 
                     <button type="submit" class="btn text-white" style="background-color: #137935">Aggiungi</button>
@@ -152,6 +164,21 @@
 </div>
 
 <script>
+    jQuery.extend(jQuery.fn.dataTableExt.oSort, {
+        "date-euro-pre": function (a) {
+            var dateArray = a.split('/');
+            return Date.parse(dateArray[2] + '/' + dateArray[1] + '/' + dateArray[0]) || 0;
+        },
+        
+        "date-euro-asc": function (a, b) {
+            return a - b;
+        },
+        
+        "date-euro-desc": function (a, b) {
+            return b - a;
+        }
+    });
+
     $(document).ready(function() {
         var table = $('#Donatori').DataTable({
             responsive: true,
@@ -161,6 +188,9 @@
             order: [
                 [3, 'desc']
             ],
+            columnDefs: [
+                { type: 'date-euro', targets: 3 }
+            ]
         });
     });
 </script>

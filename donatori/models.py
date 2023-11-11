@@ -17,6 +17,9 @@ class donatori(models.Model):
     tel = models.CharField(max_length=255)
     email = models.EmailField()
     fototessera = models.ImageField(upload_to='fototessere/', default='default.jpg')
+    privacy_a = models.BooleanField(default=False)
+    privacy_b = models.BooleanField(default=False)
+    privacy_c = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         if not self.qrverify:

@@ -5,13 +5,13 @@
 {% if stats %}
 <div class="container col-md-5">
     <div class="row">
-        <div class="m-2 col p-4 rounded-2" style="background-color: #dfdfdf;line-height: 2">
+        <div class="m-2 col p-4 rounded-2" style="background-color: rgba(219, 219, 219, 0.459);line-height: 2">
             <p class="text-left m-0">
             <b>Totale Donatori:</b> {{ stats.totaleDonatori }}<br>
             <b>Totale Donazioni:</b> {{ stats.totaleDonazioni }}<br>
             <b>Donazioni Sangue:</b> {{ stats.donazioniSangue }} - {{ stats.mlSangue }}ml<br>
             <b>Donazioni Plasma:</b> {{ stats.donazioniPlasma }} - {{ stats.mlPlasma }}ml<br>
-            <b>Donazioni Piastrine:</b> {{ stats.donazioniPiastrine }} - {{ stats.mlPiastrine }}<br>
+            <b>Donazioni Piastrine:</b> {{ stats.donazioniPiastrine }}<br>
             </p>
         </div>
     </div>
@@ -21,14 +21,14 @@
 {% if statsRs %}
 <div class="container col-md-5">
     <div class="row">
-        <div class="m-2 col p-4 rounded-2" style="background-color: #dfdfdf;line-height: 2">
+        <div class="m-2 col p-4 rounded-2" style="background-color: rgba(219, 219, 219, 0.459);line-height: 2">
             <h3 class="text-center">Ricerca dal {{ statsRs.dataInizio|date:"d/m/Y" }} al {{ statsRs.dataFine|date:"d/m/Y" }}</h3>
             <p class="text-left m-0">
             <b>Nuovi donatori:</b> {{ statsRs.totaleDonatori }}<br>
             <b>Donazioni effettuate:</b> {{ statsRs.totaleDonazioni }}<br>
             <b>Donazioni Sangue:</b> {{ statsRs.donazioniSangue }} - {{ statsRs.mlSangue }}ml<br>
             <b>Donazioni Plasma:</b> {{ statsRs.donazioniPlasma }} - {{ statsRs.mlPlasma }}ml<br>
-            <b>Donazioni Piastrine:</b> {{ statsRs.donazioniPiastrine }} - {{ statsRs.mlPiastrine }}<br>
+            <b>Donazioni Piastrine:</b> {{ statsRs.donazioniPiastrine }}<br>
             </p>
         </div>
     </div>
@@ -37,7 +37,7 @@
 
 <div class="container col-md-5">
     <div class="row">
-        <div class="m-2 col p-4 rounded-2" style="background-color: #dfdfdf;line-height: 2">
+        <div class="m-2 col p-4 rounded-2" style="background-color: rgba(219, 219, 219, 0.459);line-height: 2">
             <form method="post" action="{% url 'ricerca' %}">
                 {% csrf_token %}
                 <div class="mb-3">
@@ -49,7 +49,7 @@
                     <input type="date" class="form-control" name="dataFine" id="dataFine" required>
                 </div>
 
-                <div class="d-md-flex justify-content-md-end">
+                <div class="d-flex justify-content-end">
                     <button type="submit" class="btn text-white" style="background-color: #137935">Ricerca</button>
                 </div>
             </form>

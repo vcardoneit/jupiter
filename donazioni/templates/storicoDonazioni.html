@@ -3,7 +3,7 @@
 {% block content %}
 {% load static %}
 
-<div class="container p-3" style="background-color: rgb(219, 219, 219);">
+<div class="container p-3" style="background-color: rgba(219, 219, 219, 0.459);">
     <h2 align="center">Storico Donazioni</h2>
     <h4 align="center">Tessera numero {{ tessera }}</h4>
     <table class="table table-bordered text-nowrap" id="Donazioni">
@@ -15,7 +15,6 @@
                 <th scope="col" class="text-center">Tessera Donatore</th>
                 <th scope="col" class="text-center">Data</th>
                 <th scope="col" class="text-center">Tipo</th>
-                <th scope="col" class="text-center">Quantitativo (ml)</th>
             </tr>
         </thead>
         <tbody>
@@ -27,7 +26,6 @@
                 <td>{{ donazione.donatore_id }}</td>
                 <td>{{ donazione.data|date:"d/m/Y" }}</td>
                 <td>{{ donazione.tipo }}</td>
-                <td>{{ donazione.quantitativo }}</td>
             </tr>
         {% endfor %}
         </tbody>
@@ -35,6 +33,21 @@
 </div>
 
 <script>
+    jQuery.extend(jQuery.fn.dataTableExt.oSort, {
+        "date-euro-pre": function (a) {
+            var dateArray = a.split('/');
+            return Date.parse(dateArray[2] + '/' + dateArray[1] + '/' + dateArray[0]) || 0;
+        },
+        
+        "date-euro-asc": function (a, b) {
+            return a - b;
+        },
+        
+        "date-euro-desc": function (a, b) {
+            return b - a;
+        }
+    });
+
     $(document).ready(function() {
         var table = $('#Donazioni').DataTable({
             responsive: true,
@@ -42,8 +55,11 @@
                 url: "{% static 'datatables_it-IT.json' %}",
             },
             order: [
-                [0, 'desc']
+                [4, 'desc']
             ],
+            columnDefs: [
+                { type: 'date-euro', targets: 4 }
+            ]
         });
     });
 </script>

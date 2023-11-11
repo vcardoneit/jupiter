@@ -80,6 +80,14 @@ def aggiungi(request):
         lDonatori.comune = request.POST.get('comune')
         lDonatori.tel = request.POST.get('telefono')
         lDonatori.email = email
+
+        if 'privacy_a' in request.POST:
+            lDonatori.privacy_a = request.POST.get('privacy_a')
+        if 'privacy_b' in request.POST:
+            lDonatori.privacy_b = request.POST.get('privacy_b')
+        if 'privacy_c' in request.POST:
+            lDonatori.privacy_c = request.POST.get('privacy_c')
+
         lDonatori.save()
         set_password_form = PasswordResetForm({'email': email})
         if set_password_form.is_valid():
@@ -153,7 +161,7 @@ def scaricaTessera(request):
             font_size = 32
             font = ImageFont.truetype("./arial.ttf", font_size)
 
-            text = donatore.nome + " " + donatore.cognome
+            text = donatore.nome.strip() + " " + donatore.cognome.strip()
             text_position = (161, 225)
             draw.text(text_position, text, fill=text_color, font=font)
 
@@ -191,7 +199,7 @@ def scaricaTessera(request):
             image_buffer = BytesIO()
             img.save(image_buffer, format="png")
 
-            nt = "Tessera " + donatore.nome + " " + donatore.cognome + ".png"
+            nt = "Tessera " + donatore.nome.strip() + " " + donatore.cognome.strip() + ".png"
 
             response = HttpResponse(image_buffer.getvalue(), content_type="image/png", headers={"Content-Disposition": f'attachment; filename={nt}'})
 

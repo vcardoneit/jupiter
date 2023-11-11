@@ -86,7 +86,7 @@
             <tr class="text-center">
                 <td>{{ predonazione.id }}</td>
                 <td>{{ predonazione.nominativo }}</td>
-                <td>{{ predonazione.dataprelievo }}</td>
+                <td>{{ predonazione.dataprelievo|date:"d/m/Y" }}</td>
                 <td>{{ predonazione.telefono }}</td>
                 <td>{{ predonazione.email }}</td>
                 <td>{{ predonazione.idoneo }}</td>
@@ -97,6 +97,21 @@
 </div>
 
 <script>
+    jQuery.extend(jQuery.fn.dataTableExt.oSort, {
+        "date-euro-pre": function (a) {
+            var dateArray = a.split('/');
+            return Date.parse(dateArray[2] + '/' + dateArray[1] + '/' + dateArray[0]) || 0;
+        },
+        
+        "date-euro-asc": function (a, b) {
+            return a - b;
+        },
+        
+        "date-euro-desc": function (a, b) {
+            return b - a;
+        }
+    });
+
     $(document).ready(function() {
         var table = $('#Predonazioni').DataTable({
             responsive: true,
@@ -106,6 +121,9 @@
             order: [
                 [2, 'desc']
             ],
+            columnDefs: [
+                { type: 'date-euro', targets: 2 }
+            ]
         });
     });
 </script>
