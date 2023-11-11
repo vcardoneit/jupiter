@@ -163,7 +163,7 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': "./logs/accesses.log",
+            'filename': "./dlogs/accesses.log",
         },
     },
     'loggers': {

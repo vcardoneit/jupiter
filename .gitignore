@@ -534,3 +534,5 @@ FodyWeavers.xsd
 *.sln.iml
 
 mediafiles/fototessere
+
+*.log
