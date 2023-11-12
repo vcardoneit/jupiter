@@ -4,19 +4,22 @@
 <html lang="it">
 
 	<head>
+        {% block head %}{% endblock head %}
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Jupiter</title>
 		<link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
         <link href="{% static 'datatables.min.css' %}" rel="stylesheet">
         <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
         <link rel="manifest" href="{% static 'manifest.webmanifest' %}" />
         <script src="{% static 'datatables.min.js' %}"></script>
+        <meta name="description" content="Salva vite attraverso la donazione del sangue ad Avola. Scopri come diventare donatore, prenota la tua donazione e fai la differenza nella tua comunità. Dona il sangue, dona la vita.">
+        <meta name="keywords" content="donazione sangue, donatore sangue, avola, centro trasfusionale, ospedale">
 	</head>
 
 	<body style="background-color: #fcfcfc">
 		<nav class="p-2 text-center" style="background-color: #cc0000;">
-		    <a href="/" style="font-size: 32px;font-weight: bold;" class="text-decoration-none text-white">Jupiter - CRI Avola</a>
+		    <a href="/" style="font-size: 30px;font-weight: bold;" class="text-decoration-none text-white">Croce Rossa Italiana</a><br>
+		    <a href="/" style="font-size: 22px" class="text-decoration-none text-white">Comitato di Avola</a>
 		</nav>
 
         {% block content %}{% endblock content %}
