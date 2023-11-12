@@ -122,6 +122,22 @@ def salva(request):
         lDonatori.comune = request.POST.get('comune')
         lDonatori.tel = request.POST.get('telefono')
         lDonatori.email = request.POST.get('email')
+
+        if 'privacy_a' in request.POST:
+            lDonatori.privacy_a = request.POST.get('privacy_a')
+        else:
+            lDonatori.privacy_a = False
+
+        if 'privacy_b' in request.POST:
+            lDonatori.privacy_b = request.POST.get('privacy_b')
+        else:
+            lDonatori.privacy_b = False
+
+        if 'privacy_c' in request.POST:
+            lDonatori.privacy_c = request.POST.get('privacy_c')
+        else:
+            lDonatori.privacy_c = False
+
         lDonatori.save()
         messages.success(request, "Scheda donatore salvata con successo!")
         return redirect('donatori')
