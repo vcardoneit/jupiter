@@ -18,12 +18,12 @@
                 <img src="{% static 'logo_v_r.png' %}" class="img-thumbnail border-0 mb-4" style="max-width:70%">
 
                 {% if donatore %}
-                <h2>Tessera valida!</h2><br>
+                <h2 style="color:rgb(0, 94, 0)">Tessera valida!</h2><br>
                 <p><b>Numero Tessera:</b> {{ donatore.tessera }}<br><b>Donatore:</b> {{ donatore.nome }} {{ donatore.cognome }}<br><b>Data di nascita:</b> {{ donatore.datadinascita|date:"d/m/Y" }}<br>{% if ultimaDonazione %}<b>Ultima donazione:</b> {{ ultimaDonazione.data }}{% else %}<br><b>!! Nessuna donazione effettuata !!</b>{% endif %}</p>
                 {% endif %}
 
                 {% if errore %}
-                <h2>{{ errore }}</h2><br>
+                <h2 style="color:rgb(110, 0, 0)">{{ errore }}</h2><br>
                 {% endif %}
 
                 <p>Via Santa Lucia 86<br>96012 Avola (SR)<br>Email: avola@cri.it</p>
