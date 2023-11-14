@@ -1,9 +1,16 @@
 import csv
+import os
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from donatori.models import donatori as mDonatori
+from django.shortcuts import get_object_or_404
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from datetime import datetime
 from .models import donazioni as mDonazioni
 
 
@@ -13,8 +20,26 @@ def salva(request):
         donazioneMod = request.POST.get('donazioneMod')
         lDonazioni = mDonazioni.objects.get(id=donazioneMod)
         lDonazioni.donatore = mDonatori.objects.get(pk=request.POST.get('tessera'))
-        lDonazioni.data = request.POST.get('data')
+        lDonazioni.data = datetime.strptime(request.POST.get('data'), '%Y-%m-%d')
         lDonazioni.tipo = request.POST.get('tipodonazione')
+
+        if 'referto' in request.FILES:
+            referto = request.FILES["referto"]
+            lDonazioni.referto = InMemoryUploadedFile(referto, None, "Referto " + lDonazioni.donatore.nome + " " + lDonazioni.donatore.cognome + " " + request.POST.get('data') + ".pdf", referto.file, referto.size, referto.charset)
+
+            html_message = render_to_string("referto.html", {'donazione': lDonazioni})
+            plain_message = strip_tags(html_message)
+
+            message = EmailMultiAlternatives(
+                subject="Referto dell'esame relativo alla donazione ora disponibile!",
+                body=plain_message,
+                from_email=os.getenv("DEFAULT_FROM_EMAIL"),
+                to=[lDonazioni.donatore.email]
+            )
+
+            message.attach_alternative(html_message, "text/html")
+            message.send()
+
         lDonazioni.save()
         messages.success(request, "Scheda donazione salvata con successo!")
         return redirect('donazioni')
@@ -96,3 +121,31 @@ def esporta(request):
         return response
     else:
         return ("/")
+
+
+@login_required
+def download(request, dId):
+    if request.user.is_staff:
+        donazione = get_object_or_404(mDonazioni, id=dId)
+        donatore = get_object_or_404(mDonatori, tessera=donazione.donatore.tessera)
+        try:
+            response = HttpResponse(donazione.referto.file, content_type='application/octet-stream')
+            response['Content-Disposition'] = 'attachment; filename={}'.format("Referto " + donatore.nome + " " + donatore.cognome + " " + donazione.data.strftime("%d-%m-%Y") + ".pdf")
+            return response
+        except Exception:
+            messages.warning(request, "File non trovato, potrebbe essere scaduto o non disponibile.")
+            return redirect("donazioni")
+    else:
+        donatore = get_object_or_404(mDonatori, email=request.user.email)
+        donazione = get_object_or_404(mDonazioni, id=dId)
+        if (donazione.donatore.tessera & donatore.tessera):
+            try:
+                response = HttpResponse(donazione.referto.file, content_type='application/octet-stream')
+                response['Content-Disposition'] = 'attachment; filename={}'.format("Referto " + donatore.nome + " " + donatore.cognome + " " + donazione.data.strftime("%d-%m-%Y") + ".pdf")
+                return response
+            except Exception:
+                messages.warning(request, "File non trovato, potrebbe essere scaduto o non disponibile.")
+                return redirect("donazioni")
+        else:
+            messages.warning(request, "Non hai il permesso per accedere a questo file!")
+            return redirect("donazioni")

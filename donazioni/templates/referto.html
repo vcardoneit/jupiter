@@ -1,0 +1,18 @@
+{% autoescape off %}
+Gentile {{ donazione.donatore.nome }} {{ donazione.donatore.cognome }},
+<br><br>
+Ti informiamo che il referto dell'esame relativo alla donazione effettuata il {{ donazione.data|date:"d/m/Y" }} è ora disponibile per essere scaricato nella tua area riservata!
+<br>Accedi con le tue credenziali e visita lo storico delle donazioni per scaricare il referto!
+<br><br>
+<a href="https://jupiter.criavola.it/">Accedi alla tua area riservata</a>
+<br><br>
+<b>Attenzione! Il file verrà cancellato automaticamente dopo 28 giorni.</b>
+<br><br>
+Per qualsiasi dubbio e per prenotare la tua prossima donazione visita la nostra pagina web dedicata alla donazione del sangue! <a href="https://criavola.it/donazione-sangue">Donazione Sangue</a>
+<br><br>
+<b>Informativa sulla Privacy - come previsto ai sensi dell’art. 13 del Regolamento UE 679/2016.</b>
+<br>
+Si precisa che le informazioni contenute in questo messaggio sono riservate e ad uso esclusivo del destinatario.
+Qualora questo messaggio Le fosse pervenuto per errore, La preghiamo di eliminarlo senza copiarlo e di non inoltrarlo a terzi, dandocene gentilmente comunicazione.
+Grazie per la collaborazione.
+{% endautoescape %}

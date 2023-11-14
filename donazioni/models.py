@@ -7,3 +7,4 @@ class donazioni(models.Model):
     donatore = models.ForeignKey(donatori, on_delete=models.CASCADE)
     data = models.DateField(null=True)
     tipo = models.CharField(max_length=255)
+    referto = models.FileField(upload_to='referti/', blank=True, null=True)
