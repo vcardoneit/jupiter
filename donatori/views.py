@@ -80,6 +80,7 @@ def aggiungi(request):
         lDonatori.comune = request.POST.get('comune')
         lDonatori.tel = request.POST.get('telefono')
         lDonatori.email = email
+        lDonatori.modReferti = request.POST.get('modref')
 
         if 'privacy_a' in request.POST:
             lDonatori.privacy_a = request.POST.get('privacy_a')
@@ -122,6 +123,7 @@ def salva(request):
         lDonatori.comune = request.POST.get('comune')
         lDonatori.tel = request.POST.get('telefono')
         lDonatori.email = request.POST.get('email')
+        lDonatori.modReferti = request.POST.get('modref')
 
         if 'privacy_a' in request.POST:
             lDonatori.privacy_a = request.POST.get('privacy_a')

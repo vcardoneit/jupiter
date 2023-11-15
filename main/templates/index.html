@@ -19,6 +19,13 @@
     {% endif %}
 
     {% if not request.user.is_staff %}
+    {% if not donatore.autorizzazione %}
+    <div class="row justify-content-center pe-3 ps-3">
+        <div class="col-md-4">
+            <div class="alert alert-danger" role="alert"><h3>Attenzione!</h3>Se vuoi continuare a ricevere i referti degli esami nella modalità da te scelta, clicca su "Invia subito" e invia l'autorizzazione!<br><a class="text-decoration-none"href="/autorizzazione">Invia subito</a></div>
+        </div>
+    </div>
+    {% endif %}
     <div class="container col-md-5">
         <div class="row">
             <div class="col p-4 rounded-2" style="background-color: #dfdfdf;line-height: 2">

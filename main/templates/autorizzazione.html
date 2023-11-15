@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Autorizzazione | Jupiter</title>
+{% endblock head %}
+
+{% block content %}
+<div class="container p-3" style="background-color: rgba(219, 219, 219, 0.459);">
+    <h2 align="center">Autorizzazione</h2>
+    <p align="center">Compilando il modulo, ci autorizzi a ritirare i referti degli esami effettuati durante la donazione per conto tuo e a inviarteli secondo la modalità da te scelta.</p>
+    <form method="post" action="{% url 'autorizza' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="nomecompleto" class="form-label">Nome completo</label>
+            <input type="text" class="form-control" name="nomecompleto" id="nomecompleto" value="{{ donatore.nome }} {{ donatore.cognome }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="luogodinascita" class="form-label">Luogo di nascita</label>
+            <input type="text" class="form-control" name="luogodinascita" id="luogodinascita" required>
+        </div>
+        <div class="mb-3">
+            <label for="datadinascita" class="form-label">Data di nascita</label>
+            <input type="date" class="form-control" name="datadinascita" id="datadinascita" value="{{ donatore.datadinascita|date:'Y-m-d' }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="luogodiresidenza" class="form-label">Luogo di residenza</label>
+            <input type="text" class="form-control" name="luogodiresidenza" id="luogodiresidenza" value="{{ donatore.comune }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="indirizzodiresidenza" class="form-label">Indirizzo di residenza</label>
+            <input type="text" class="form-control" name="indirizzodiresidenza" id="indirizzodiresidenza" value="{{ donatore.indirizzo }}" required>
+        </div>
+
+        <h4 align="center">Documento di riconoscimento</h4>
+        <div class="mb-3">
+            <label for="numdocumento" class="form-label">Numero Carta di Identità</label>
+            <input type="text" class="form-control" name="numdocumento" id="numdocumento" required>
+        </div>
+        <div class="mb-3">
+            <label for="rilasciodoc" class="form-label">Rilasciato da</label>
+            <input type="text" class="form-control" name="rilasciodoc" id="rilasciodoc" required>
+        </div>  
+        <div class="mb-3">
+            <label for="datrilasciodoc" class="form-label">Data rilascio</label>
+            <input type="date" class="form-control" name="datrilasciodoc" id="datrilasciodoc" required>
+        </div>  
+        <div class="mb-3">
+            <label for="scadoc" class="form-label">Scadenza documento</label>
+            <input type="date" class="form-control" name="scadoc" id="scadoc" required>
+        </div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="submit" class="btn text-white btn-lg" style="background-color: #137935"><b>Autorizza</b></button>
+        </div>
+    </form>
+</div> 
+{% endblock content %}

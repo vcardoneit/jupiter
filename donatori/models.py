@@ -20,6 +20,8 @@ class donatori(models.Model):
     privacy_a = models.BooleanField(default=False)
     privacy_b = models.BooleanField(default=False)
     privacy_c = models.BooleanField(default=False)
+    modReferti = models.CharField(max_length=255, default='')
+    autorizzazione = models.ImageField(upload_to='autorizzazioni/', blank=True, null=True)
 
     def save(self, *args, **kwargs):
         if not self.qrverify:

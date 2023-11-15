@@ -80,9 +80,9 @@
             <tr>
                 {% if request.user.is_staff %}
                 <th scope="col" class="text-center">ID Donazione</th>
-                <th scope="col" class="text-center">Tessera Donatore</th>
                 <th scope="col" class="text-center">Nome</th>
                 <th scope="col" class="text-center">Cognome</th>
+                <th scope="col" class="text-center">Tessera Donatore</th>
                 {% endif %}
                 <th scope="col" class="text-center">Data</th>
                 <th scope="col" class="text-center">Tipo</th>
@@ -94,14 +94,16 @@
             <tr class="text-center">
                 {% if request.user.is_staff %}
                 <td>{{ donazione.id }}</td>
-                <td>{{ donazione.donatore_id }}</td>
                 <td>{{ donazione.donatore.nome }}</td>
                 <td>{{ donazione.donatore.cognome }}</td>
+                <td>{{ donazione.donatore_id }}</td>
                 {% endif %}
                 <td>{{ donazione.data|date:"d/m/Y" }}</td>
                 <td>{{ donazione.tipo }}</td>
                 {% if donazione.referto %}
                 <td><a href="donazioni/download/{{ donazione.id }}">Scarica</a></td>
+                {% elif donazione.donatore.modReferti == "Cartacea" %}
+                <td>Modalità Cartacea</td>
                 {% else %}
                 <td>Non disponibile</td>
                 {% endif %}

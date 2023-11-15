@@ -27,10 +27,12 @@
             <label for="data" class="form-label">Data</label>
             <input type="date" class="form-control" name="data" value="{{ donazione.data|date:'Y-m-d' }}" id="data" required>
         </div>
+        {% if not donazione.donatore.modReferti == "Cartacea" %}
         <div class="mb-3">
             <label for="referto" class="form-label">Referto</label>
             <input class="form-control shadow-none" type="file" name="referto" accept="application/pdf">
         </div>
+        {% endif %}
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button type="submit" class="btn text-white btn-lg" style="background-color: #137935">Salva</button>

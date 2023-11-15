@@ -7,6 +7,10 @@ from django.contrib.auth.decorators import login_required
 from donatori.models import donatori as mDonatori
 from donazioni.models import donazioni as mDonazioni
 from PIL import Image, ImageDraw, ImageFont
+from django.contrib import messages
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.shortcuts import get_object_or_404
+from datetime import datetime
 from io import BytesIO
 
 
@@ -77,3 +81,87 @@ def tessera(request):
         response = HttpResponse(image_buffer.getvalue(), content_type="image/png", headers={"Content-Disposition": f'attachment; filename={nt}'})
 
         return response
+
+
+@login_required
+def autorizzazione(request):
+    if request.user.is_staff or mDonatori.objects.get(email=request.user.email).autorizzazione:
+        return redirect("/")
+    else:
+        donatore = mDonatori.objects.get(email=request.user.username)
+        return render(request, "autorizzazione.html", {"donatore": donatore})
+
+
+@login_required
+def autorizza(request):
+    if request.user.is_staff or mDonatori.objects.get(email=request.user.email).autorizzazione:
+        return redirect("/")
+    else:
+        img = Image.open(os.path.join(BASE_DIR, 'main/static', 'autoreferti.png'))
+
+        draw = ImageDraw.Draw(img)
+
+        text_color = (0, 0, 0)
+        font_size = 64
+        font = ImageFont.truetype("./arial.ttf", font_size)
+
+        text = request.POST.get('nomecompleto')
+        text_position = (676, 993)
+        draw.text(text_position, text, fill=text_color, font=font)
+
+        text = request.POST.get('luogodinascita')
+        text_position = (1656, 993)
+        draw.text(text_position, text, fill=text_color, font=font)
+
+        text = datetime.strptime(request.POST.get('datadinascita'), '%Y-%m-%d').strftime('%d/%m/%Y')
+        text_position = (220, 1120)
+        draw.text(text_position, text, fill=text_color, font=font)
+
+        text = request.POST.get('luogodiresidenza')
+        text_position = (1350, 1120)
+        draw.text(text_position, text, fill=text_color, font=font)
+
+        text = request.POST.get('indirizzodiresidenza')
+        text_position = (530, 1240)
+        draw.text(text_position, text, fill=text_color, font=font)
+
+        text = request.POST.get('numdocumento')
+        text_position = (715, 1555)
+        draw.text(text_position, text, fill=text_color, font=font)
+
+        text = request.POST.get('rilasciodoc')
+        text_position = (1590, 1555)
+        draw.text(text_position, text, fill=text_color, font=font)
+
+        text = datetime.strptime(request.POST.get('datrilasciodoc'), '%Y-%m-%d').strftime('%d/%m/%Y')
+        text_position = (210, 1680)
+        draw.text(text_position, text, fill=text_color, font=font)
+
+        text = datetime.strptime(request.POST.get('scadoc'), '%Y-%m-%d').strftime('%d/%m/%Y')
+        text_position = (1055, 1680)
+        draw.text(text_position, text, fill=text_color, font=font)
+
+        image_buffer = BytesIO()
+        img.save(image_buffer, format="png")
+        image_buffer.seek(0)
+
+        lDonatori = mDonatori.objects.get(email=request.user.email)
+        lDonatori.autorizzazione = InMemoryUploadedFile(image_buffer, None, "Autorizzazione " + lDonatori.nome + " " + lDonatori.cognome + ".png", 'image/png', image_buffer.tell(), None)
+        lDonatori.save()
+
+        return redirect("/")
+
+
+@login_required
+def autdownload(request, dId):
+    if request.user.is_staff:
+        donatore = get_object_or_404(mDonatori, tessera=dId)
+        try:
+            response = HttpResponse(donatore.autorizzazione.file, content_type='image/png')
+            response['Content-Disposition'] = 'attachment; filename={}'.format("Autorizzazione " + donatore.nome + " " + donatore.cognome + ".png")
+            return response
+        except Exception:
+            messages.warning(request, "File non trovato!")
+            return redirect("donatori")
+    else:
+        return redirect("/")

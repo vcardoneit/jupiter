@@ -106,6 +106,13 @@
                         <label for="email" class="form-label">Email *</label>
                         <input type="email" class="form-control shadow-none" name="email" id="email" required>
                     </div>
+                    <div class="mb-3">
+                        <label for="modref" class="form-label">Modalità invio referti *</label>
+                        <select class="form-control shadow-none" name="modref" id="modref" required>
+                            <option value="Cartacea">Cartacea</option>
+                            <option value="Digitale">Digitale</option>
+                        </select>
+                    </div>
                     <div class="mb-3 form-check">
                         <input class="form-check-input shadow-none" type="checkbox" value="True" name="privacy_a" id="privacy_a" required>
                         <label class="form-check-label" for="privacy_a">Consenso privacy obbligatorio *</label>
@@ -143,6 +150,8 @@
                 <th scope="col" class="text-center">Comune</th>
                 <th scope="col" class="text-center">Telefono</th>
                 <th scope="col" class="text-center">Email</th>
+                <th scope="col" class="text-center">Invio referti</th>
+                <th scope="col" class="text-center">Autorizzazione</th>
             </tr>
         </thead>
         <tbody>
@@ -160,6 +169,12 @@
                 <td>{{ donatore.comune }}</td>
                 <td>{{ donatore.tel }}</td>
                 <td>{{ donatore.email }}</td>
+                <td>{{ donatore.modReferti }}</td>
+                {% if donatore.autorizzazione %}
+                <td><a href="/autorizzazione/download/{{ donatore.tessera }}">Scarica</a></td>
+                {% else %}
+                <td>Non disponibile</td>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>

@@ -68,6 +68,13 @@
             <label for="email" class="form-label">Email *</label>
             <input type="email" class="form-control shadow-none" name="email" value="{{ donatore.email }}" id="email" required>
         </div>
+        <div class="mb-3">
+            <label for="modref" class="form-label">Modalità invio referti *</label>
+            <select class="form-control shadow-none" name="modref" id="modref" required>
+                <option value="Cartacea" {% if donatore.modReferti == "Cartacea" %}selected{% endif %}>Cartacea</option>
+                <option value="Digitale" {% if donatore.modReferti == "Digitale" %}selected{% endif %}>Digitale</option>
+            </select>
+        </div>
         <div class="mb-3 form-check">
             <input class="form-check-input shadow-none" type="checkbox" value="True" name="privacy_a" id="privacy_a" {% if donatore.privacy_a == True %}checked{% endif %} required>
             <label class="form-check-label" for="privacy_a">Consenso privacy obbligatorio *</label>
