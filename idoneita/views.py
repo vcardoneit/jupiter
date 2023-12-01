@@ -20,7 +20,6 @@ def aggiungi(request):
         Idoneita.nominativo = request.POST.get('nominativo')
         Idoneita.dataprelievo = request.POST.get('dataprelievo')
         Idoneita.telefono = request.POST.get('telefono')
-        Idoneita.email = request.POST.get('email')
         Idoneita.idoneo = request.POST.get('idoneo')
         Idoneita.save()
 
@@ -64,7 +63,6 @@ def salva(request):
         pred.nominativo = request.POST.get('nominativo')
         pred.dataprelievo = request.POST.get('dataprelievo')
         pred.telefono = request.POST.get('telefono')
-        pred.email = request.POST.get('email')
         pred.idoneo = request.POST.get('idoneo')
         pred.save()
         messages.success(request, "Predonazione salvata con successo!")

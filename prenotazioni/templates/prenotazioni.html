@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Prenotazioni | Jupiter</title>
+{% endblock head %}
+
+{% block content %}
+{% load static %}
+
+<div class="text-center justify-content-center">
+    <div class="pt-3">
+        <div class="row justify-content-center m-0">
+            <form class="col-lg-3" method="post" action="{% url 'prenotazioni_conferma' %}">
+                {% csrf_token %}
+                <div class="input-group pt-3 pe-1 ps-1">
+                        <input type="number" class="form-control shadow-none" name="idPren" id="idPren" placeholder="ID" aria-label="ID" required>
+                    <button type="submit" class="btn text-white" style="background-color: #137935">Conferma predonazione</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="row justify-content-center m-0">
+            <form class="col-lg-3" method="post" action="{% url 'prenotazioni_elimina' %}">
+                {% csrf_token %}
+                <div class="input-group pt-3 pb-3 pe-1 ps-1">
+                    <input type="number" class="form-control shadow-none" name="idPren" id="idPren" placeholder="ID" aria-label="ID" required>
+                    <button type="submit" class="btn text-white" style="background-color: #cc0000">Elimina prenotazione</button>
+                </div>
+                
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+                {% endfor %}
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <table class="table table-bordered text-nowrap" id="Prenotazioni">
+        <thead>
+            <tr>
+                <th scope="col" class="text-center">ID</th>
+                <th scope="col" class="text-center">Nome</th>
+                <th scope="col" class="text-center">Telefono</th>
+                <th scope="col" class="text-center">Data</th>
+                <th scope="col" class="text-center">Prima Donazione</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for prenotazione in prenotazioni %}
+            <tr class="text-center">
+                <td>{{ prenotazione.id }}</td>
+                <td>{{ prenotazione.nome }}</td>
+                <td>{{ prenotazione.telefono }}</td>
+                <td>{{ prenotazione.data|date:"d/m/Y" }}</td>
+                <td>{{ prenotazione.primadonazione }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    jQuery.extend(jQuery.fn.dataTableExt.oSort, {
+        "date-euro-pre": function (a) {
+            var dateArray = a.split('/');
+            return Date.parse(dateArray[2] + '/' + dateArray[1] + '/' + dateArray[0]) || 0;
+        },
+        
+        "date-euro-asc": function (a, b) {
+            return a - b;
+        },
+        
+        "date-euro-desc": function (a, b) {
+            return b - a;
+        }
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        var table = $('#Prenotazioni').DataTable({
+            responsive: true,
+            language: {
+                url: "{% static 'datatables_it-IT.json' %}",
+            },
+            order: [
+                [3, 'desc']
+            ],
+            columnDefs: [
+                { type: 'date-euro', targets: 3 }
+            ]
+        });
+    });
+</script>
+
+{% endblock content %}

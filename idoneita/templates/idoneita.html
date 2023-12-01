@@ -53,10 +53,6 @@
                         <input type="tel" class="form-control" name="telefono" id="telefono" maxlength="10" required>
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" name="email" id="email" required>
-                    </div>
-                    <div class="mb-3">
                         <label for="idoneo" class="form-label">Idoneità</label>
                         <select class="form-control" name="idoneo" id="idoneo" required>
                             <option value="Idoneo">Idoneo</option>
@@ -81,7 +77,6 @@
                 <th scope="col" class="text-center">Nominativo</th>
                 <th scope="col" class="text-center">Data Prelievo</th>
                 <th scope="col" class="text-center">Telefono</th>
-                <th scope="col" class="text-center">Email</th>
                 <th scope="col" class="text-center">Idoneo</th>
             </tr>
         </thead>
@@ -92,7 +87,6 @@
                 <td>{{ predonazione.nominativo }}</td>
                 <td>{{ predonazione.dataprelievo|date:"d/m/Y" }}</td>
                 <td>{{ predonazione.telefono }}</td>
-                <td>{{ predonazione.email }}</td>
                 <td>{{ predonazione.idoneo }}</td>
             </tr>
         {% endfor %}

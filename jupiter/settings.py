@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'donazioni',
     'statistiche',
     'idoneita',
+    'prenotazioni',
+    'rest_framework',
+    'rest_framework_api_key',
 ]
 
 MIDDLEWARE = [
