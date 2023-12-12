@@ -7,6 +7,8 @@
 - **Statistiche**
 - **Invio appello a tutti i Donatori**
 - **Accesso Donatore**
+- **Gestione prenotazioni**
+- **API per inserire prenotazione - /api/addprt/**
 - **Esportazione dati in CSV**
 
 ## Installation with Docker
