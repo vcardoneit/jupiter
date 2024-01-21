@@ -10,6 +10,7 @@
 - **Gestione prenotazioni**
 - **API per inserire prenotazione - /api/addprt/**
 - **Esportazione dati in CSV**
+- **Promemoria prenotazioni via e-mail**
 
 ## Installation with Docker
 #### Docker compose
@@ -72,6 +73,7 @@ volumes:
 | `POSTGRES_USER` |
 | `POSTGRES_PASSWORD` |
 | `POSTGRES_DB` |
+| `NOTIFYEMAIL` |
 
 ## Problems / Questions
 <b>Email:</b> jupiter@vcardone.it

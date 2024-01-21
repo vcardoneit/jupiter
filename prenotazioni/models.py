@@ -6,4 +6,4 @@ class prenotazioni(models.Model):
     nome = models.CharField(max_length=255)
     telefono = models.CharField(max_length=255)
     data = models.DateField(null=True)
-    primadonazione = models.CharField(max_length=255)
+    analisieffettuate = models.CharField(max_length=255)

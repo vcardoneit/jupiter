@@ -153,9 +153,9 @@ def esporta(request):
         response = HttpResponse(content_type="text/csv", headers={"Content-Disposition": 'attachment; filename="donatori.csv"'})
         lDonatori = mDonatori.objects.all()
         writer = csv.writer(response)
-        writer.writerow(["tessera", "dataiscrizione", "grupposang", "nome", "cognome", "datadinascita", "luogodinascita", "codicefiscale", "indirizzo", "comune", "tel", "email"])
+        writer.writerow(["tessera", "codiceqr", "dataiscrizione", "grupposang", "nome", "cognome", "datadinascita", "luogodinascita", "codicefiscale", "indirizzo", "comune", "tel", "email", "privacy_a", "privacy_b", "privacy_c", "modReferti"])
         for x in lDonatori:
-            writer.writerow([x.tessera, x.dataiscrizione, x.grupposang, x.nome, x.cognome, x.datadinascita, x.luogodinascita, x.codicefiscale, x.indirizzo, x.comune, x.tel, x.email])
+            writer.writerow([x.tessera, x.qrverify, x.dataiscrizione, x.grupposang, x.nome, x.cognome, x.datadinascita, x.luogodinascita, x.codicefiscale, x.indirizzo, x.comune, x.tel, x.email, x.privacy_a, x.privacy_b, x.privacy_c, x.modReferti])
 
         return response
     else:

@@ -9,6 +9,9 @@ from django.contrib import messages
 from .serializers import prenotazioniSer
 from .models import prenotazioni
 from idoneita.models import idoneita as lidoneita
+from apscheduler.schedulers.background import BackgroundScheduler
+from django_apscheduler.jobstores import DjangoJobStore, register_events, register_job
+from .utils import notificaPrenotazioni
 
 
 class addprt(APIView):
@@ -41,7 +44,7 @@ def conferma(request):
             return redirect('prenotazioni')
         else:
             prenotazione = prenotazioni.objects.get(id=prenotazione)
-            if (prenotazione.primadonazione == "Si"):
+            if (prenotazione.analisieffettuate == "Si"):
 
                 idoneita = lidoneita.objects.create()
                 idoneita.nominativo = prenotazione.nome
@@ -75,3 +78,16 @@ def elimina(request):
             return redirect('prenotazioni')
     else:
         return redirect("/")
+
+
+scheduler = BackgroundScheduler()
+scheduler.add_jobstore(DjangoJobStore(), "default")
+
+
+@register_job(scheduler, "cron", day_of_week="thu", hour=14, id="jobNotificaPrt", replace_existing=True)
+def jobNotifica():
+    notificaPrenotazioni()
+
+
+register_events(scheduler)
+scheduler.start()

@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'prenotazioni',
     'rest_framework',
     'rest_framework_api_key',
+    'django_apscheduler',
 ]
 
 MIDDLEWARE = [
