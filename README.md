@@ -1,7 +1,10 @@
 <h1 align="center">Jupiter</h1>
 <p align="center">Jupiter è una web app per la gestione delle attività riguardanti la donazione del sangue utilizzata dalla Croce Rossa Italiana di Avola
 
-## Features
+## Wiki - Documentazione
+Consulta la [wiki](https://github.com/vcardoneit/jupiter/wiki) per scoprire tutte le diverse funzionalità e come utilizzarle!
+
+## Funzionalità
 - **Gestione Donatori, Donazioni e Predonazioni**
 - **Emissione tessera con verifica tramite QR**
 - **Statistiche**
@@ -12,8 +15,9 @@
 - **Esportazione dati in CSV**
 - **Promemoria prenotazioni via e-mail**
 
-## Installation with Docker
+## Installazione
 #### Docker compose
+Consulta la documentazione per maggiori dettagli
 ```yaml
 version: "3.8"
 
@@ -51,35 +55,5 @@ volumes:
   certs:
 ```
 
-#### Environment Variables
-| Environment Variable  |
-| ------------- |
-| `DEBUG` |
-| `SECRET_KEY` |
-| `SQL_ENGINE` |
-| `SQL_DATABASE` |
-| `SQL_USER` |
-| `SQL_PASSWORD` |
-| `SQL_HOST` |
-| `SQL_PORT` |
-| `DJANGO_ALLOWED_HOSTS` |
-| `CSRF_TRUSTED_ORIGINS` |
-| `EMAIL_HOST` |
-| `EMAIL_HOST_USER` |
-| `EMAIL_HOST_PASSWORD` |
-| `DEFAULT_FROM_EMAIL` |
-| `SESSION_COOKIE_SECURE` |
-| `CSRF_COOKIE_SECURE` |
-| `POSTGRES_USER` |
-| `POSTGRES_PASSWORD` |
-| `POSTGRES_DB` |
-| `NOTIFYEMAIL` |
-
-## Problems / Questions
+## Domande - Segnalazioni
 <b>Email:</b> jupiter@vcardone.it
-
-## Screenshot
-<p align="center"><img src="https://i.imgur.com/qSCCRDQ.png"></p>
-<p align="center"><img src="https://i.imgur.com/DEfwXzI.png"></p>
-<p align="center"><img src="https://i.imgur.com/AfWo6JU.png"></p>
-<p align="center"><img src="https://i.imgur.com/gngm488.png"></p>
