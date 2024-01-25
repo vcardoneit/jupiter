@@ -11,11 +11,11 @@ def notificaPrenotazioni():
     if not dbListaPrenotazioni:
         return
 
-    listaPrenotazioni = "<br>".join([f"<b>Nome:</b> {prenotazione.nome} - <b>Telefono:</b> {prenotazione.nome} - <b>Ha effettuato le analisi predonazione:</b> {prenotazione.analisieffettuate}" for prenotazione in dbListaPrenotazioni])
+    listaPrenotazioni = "<br>".join([f"<b>Nome:</b> {prenotazione.nome} - <b>Telefono:</b> {prenotazione.telefono} - <b>Ha effettuato le analisi predonazione:</b> {prenotazione.analisieffettuate}" for prenotazione in dbListaPrenotazioni])
 
-    oggetto = "Prenotazioni donazione sangue " + gg.strftime("%d/%m/%Y")
+    oggetto = "Promemoria donazione sangue " + gg.strftime("%d/%m/%Y")
 
-    corpo = f'Prenotazioni per la donazione del sangue di domani: <br><br>{listaPrenotazioni}'
+    corpo = f'Prenotazioni per domani: <br><br>{listaPrenotazioni}'
 
     notifyemail = os.environ.get('NOTIFYEMAIL', '')
 

@@ -14,7 +14,7 @@
                 {% csrf_token %}
                 <div class="input-group pt-3 pe-1 ps-1">
                         <input type="number" class="form-control shadow-none" name="idPren" id="idPren" placeholder="ID" aria-label="ID" required>
-                    <button type="submit" class="btn text-white" style="background-color: #137935">Conferma predonazione</button>
+                    <button type="submit" class="btn text-white" style="background-color: #137935">Conferma prenotazione</button>
                 </div>
             </form>
         </div>
@@ -55,7 +55,7 @@
                 <td>{{ prenotazione.nome }}</td>
                 <td>{{ prenotazione.telefono }}</td>
                 <td>{{ prenotazione.data|date:"d/m/Y" }}</td>
-                <td>{{ prenotazione.primadonazione }}</td>
+                <td>{{ prenotazione.analisieffettuate }}</td>
             </tr>
         {% endfor %}
         </tbody>

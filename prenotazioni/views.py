@@ -84,7 +84,7 @@ scheduler = BackgroundScheduler()
 scheduler.add_jobstore(DjangoJobStore(), "default")
 
 
-@register_job(scheduler, "cron", day_of_week="thu", hour=14, id="jobNotificaPrt", replace_existing=True)
+@register_job(scheduler, "cron", day_of_week="thu", hour=17, id="jobNotificaPrt", replace_existing=True)
 def jobNotifica():
     notificaPrenotazioni()
 
