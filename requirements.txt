@@ -6,3 +6,4 @@ qrcode==7.4.2
 djangorestframework==3.14.0
 djangorestframework_api_key==3.0.0
 django-apscheduler==0.6.2
+sqlparse>=0.5.0 # not directly required, pinned by Snyk to avoid a vulnerability
