@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from donatori.models import donatori
 from donazioni.models import donazioni
+from django.utils.http import url_has_allowed_host_and_scheme
 
 
 @login_required
@@ -26,8 +27,13 @@ def login(request):
 
             if user is not None:
                 dlogin(request, user)
-                if next:
-                    return redirect(next)
+                next_url = next
+                if next_url and url_has_allowed_host_and_scheme(
+                    url=next_url,
+                    allowed_hosts={request.get_host()},
+                    require_https=request.is_secure(),
+                ):
+                    return redirect(next_url)
                 else:
                     return redirect("/")
             else:

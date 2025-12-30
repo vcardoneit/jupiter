@@ -211,8 +211,8 @@ def scaricaTessera(request):
             )
             qr.add_data(url)
             qr.make(fit=True)
-            qr_img = qr.make_image(fill_color="black", back_color="white")
-            img.paste(qr_img, (500, 440))
+            qr_img = qr.make_image(fill_color="black", back_color="white").convert("RGBA")
+            img.paste(qr_img, (500, 440), qr_img)
 
             image_buffer = BytesIO()
             img.save(image_buffer, format="png")
